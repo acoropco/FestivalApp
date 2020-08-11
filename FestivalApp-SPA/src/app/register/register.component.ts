@@ -4,6 +4,7 @@ import { BsDatepickerConfig } from 'ngx-bootstrap/datepicker';
 import { CustomValidators } from 'ng2-validation';
 import { AuthService } from '../_services/auth.service';
 import { User } from '../_models/user';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -18,7 +19,8 @@ export class RegisterComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private authService: AuthService) { }
+    private authService: AuthService,
+    private router: Router) { }
 
   ngOnInit(): void {
     this.bsConfig = {
@@ -53,7 +55,9 @@ export class RegisterComponent implements OnInit {
       }, error => {
         console.log(error);
       }, () => {
-        this.authService.login(this.user).subscribe();
+        this.authService.login(this.user).subscribe(() => {
+          this.router.navigate(["/home"]);
+        });
       });
     }
   }

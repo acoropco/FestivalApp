@@ -11,6 +11,7 @@ namespace FestivalApp.API.Models
       public DateTime StartDate { get; set; }
       public DateTime EndDate { get; set; }
       public string Location { get; set; }
+      public string City { get; set; }
       public virtual ICollection<Rental> Rentals { get; set; }
     }
 }
