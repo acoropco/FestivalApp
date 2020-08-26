@@ -11,5 +11,7 @@ namespace FestivalApp.API.Data
          Task<bool> SaveAll();
          Task<List<Festival>> GetFestivals();
          Task<Festival> GetFestival(int id);
+         Task<User> GetUser(int id);
+         Task<UserFestival> GetLike(int userId, int festivalId);
     }
 }

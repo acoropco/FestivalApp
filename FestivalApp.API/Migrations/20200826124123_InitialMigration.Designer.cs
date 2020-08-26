@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FestivalApp.API.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20200811145514_InitialMigration")]
+    [Migration("20200826124123_InitialMigration")]
     partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -40,6 +40,9 @@ namespace FestivalApp.API.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<DateTime>("StartDate")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("TicketUrl")
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
@@ -200,6 +203,21 @@ namespace FestivalApp.API.Migrations
                     b.ToTable("AspNetUsers");
                 });
 
+            modelBuilder.Entity("FestivalApp.API.Models.UserFestival", b =>
+                {
+                    b.Property<int>("UserId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("FestivalId")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("UserId", "FestivalId");
+
+                    b.HasIndex("FestivalId");
+
+                    b.ToTable("UserFestivals");
+                });
+
             modelBuilder.Entity("FestivalApp.API.Models.UserRole", b =>
                 {
                     b.Property<int>("UserId")
@@ -319,6 +337,21 @@ namespace FestivalApp.API.Migrations
                     b.HasOne("FestivalApp.API.Models.Rental", "Rental")
                         .WithMany("RentalPhotos")
                         .HasForeignKey("RentalId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("FestivalApp.API.Models.UserFestival", b =>
+                {
+                    b.HasOne("FestivalApp.API.Models.Festival", "Festival")
+                        .WithMany("UserFestivals")
+                        .HasForeignKey("FestivalId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("FestivalApp.API.Models.User", "User")
+                        .WithMany("UserFestivals")
+                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

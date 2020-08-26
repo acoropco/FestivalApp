@@ -1,0 +1,26 @@
+<div class="card mb-4" style="width: 15rem;">
+  <div class="card-img-wrapper">
+    <img src="{{festival.imageUrl}}" alt="{{festival.name}}" class="card-img-top">
+    <ul class="list-inline member-icons animate text-center">
+      <li class="list-inline-item">
+        <button class="btn btn-primary" [routerLink]="['/rentals']">
+          <i class="fa fa-home"> Rentals</i>
+        </button>
+      </li>
+      <li class="list-inline-item">
+        <button class="btn btn-success">
+          <a style="color: inherit; text-decoration: inherit;" href="{{festival.ticketUrl}}"><i class="fa fa-ticket"> Ticket</i></a>
+        </button>
+      </li>
+    </ul>
+    <a class="favorite-icon animate" title="Add to Favorites" (click)="sendLike()"><i class="fa fa-bolt fa-3x"></i></a>
+  </div>
+  <div class="card-body p-1">
+    <h6 class="card-title text-center mb-1">
+      {{festival.name}}
+    </h6>
+    <p class="card-text text-muted text-center"><strong>{{festival.startDate | date:"dd-MMM"}}</strong> - <strong>{{festival.endDate | date:"dd-MMM"}}</strong></p>
+    <p class="card-text text-muted text-center">{{festival.location}}</p>
+    <p class="card-text text-muted text-center">{{festival.city}}</p>
+  </div>
+</div>

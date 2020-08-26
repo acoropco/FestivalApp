@@ -40,6 +40,9 @@ namespace FestivalApp.API.Migrations
                     b.Property<DateTime>("StartDate")
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("TicketUrl")
+                        .HasColumnType("TEXT");
+
                     b.HasKey("Id");
 
                     b.ToTable("Festivals");
@@ -198,6 +201,21 @@ namespace FestivalApp.API.Migrations
                     b.ToTable("AspNetUsers");
                 });
 
+            modelBuilder.Entity("FestivalApp.API.Models.UserFestival", b =>
+                {
+                    b.Property<int>("UserId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("FestivalId")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("UserId", "FestivalId");
+
+                    b.HasIndex("FestivalId");
+
+                    b.ToTable("UserFestivals");
+                });
+
             modelBuilder.Entity("FestivalApp.API.Models.UserRole", b =>
                 {
                     b.Property<int>("UserId")
@@ -317,6 +335,21 @@ namespace FestivalApp.API.Migrations
                     b.HasOne("FestivalApp.API.Models.Rental", "Rental")
                         .WithMany("RentalPhotos")
                         .HasForeignKey("RentalId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("FestivalApp.API.Models.UserFestival", b =>
+                {
+                    b.HasOne("FestivalApp.API.Models.Festival", "Festival")
+                        .WithMany("UserFestivals")
+                        .HasForeignKey("FestivalId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("FestivalApp.API.Models.User", "User")
+                        .WithMany("UserFestivals")
+                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

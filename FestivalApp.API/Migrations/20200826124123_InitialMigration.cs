@@ -63,7 +63,8 @@ namespace FestivalApp.API.Migrations
                     StartDate = table.Column<DateTime>(nullable: false),
                     EndDate = table.Column<DateTime>(nullable: false),
                     Location = table.Column<string>(nullable: true),
-                    City = table.Column<string>(nullable: true)
+                    City = table.Column<string>(nullable: true),
+                    TicketUrl = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -205,6 +206,30 @@ namespace FestivalApp.API.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "UserFestivals",
+                columns: table => new
+                {
+                    UserId = table.Column<int>(nullable: false),
+                    FestivalId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_UserFestivals", x => new { x.UserId, x.FestivalId });
+                    table.ForeignKey(
+                        name: "FK_UserFestivals_Festivals_FestivalId",
+                        column: x => x.FestivalId,
+                        principalTable: "Festivals",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_UserFestivals_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "RentalPhotos",
                 columns: table => new
                 {
@@ -276,6 +301,11 @@ namespace FestivalApp.API.Migrations
                 name: "IX_Rentals_UserId",
                 table: "Rentals",
                 column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_UserFestivals_FestivalId",
+                table: "UserFestivals",
+                column: "FestivalId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -297,6 +327,9 @@ namespace FestivalApp.API.Migrations
 
             migrationBuilder.DropTable(
                 name: "RentalPhotos");
+
+            migrationBuilder.DropTable(
+                name: "UserFestivals");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");

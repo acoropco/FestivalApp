@@ -1,0 +1,68 @@
+<div class="container mt-4">
+  <div class="row">
+    <div class="col-sm-4">
+      <h1>Your Profile</h1>
+    </div>
+    <div class="col-sm-8">
+      <!-- <div *ngIf="editForm.dirty" class="alert alert-info">
+        <strong>Information:</strong> You have made changes. Any unsaved changes will be lost!
+      </div> -->
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-4">
+      <div class="card">
+        <div class="card-body">
+          <div>
+            <strong>First Name:</strong>
+            <p>{{user.firstName}}</p>
+          </div>
+          <div>
+            <strong>Last Name:</strong>
+            <p>{{user.lastName}}</p>
+          </div>
+          <div>
+            <strong>Date of Birth:</strong>
+            <p>{{user.dateOfBirth | date:"dd-MMM-yyyy"}}</p>
+          </div>
+          <div class="card-footer">
+            <button form="editForm" class="btn btn-success btn-block">Save Changes</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-8">
+      <div class="tab-panel">
+        <tabset class="member-tabset">
+          <!-- <tab heading="Edit Profile">
+            <form #editForm="ngForm" id="editForm" (ngSubmit)="updateUser()">
+              <h4>First Name</h4>
+              <input
+                name="firstName"
+                rows="6"
+                class="form-control"
+                [(ngModel)]="user.firstName">
+              <h4>Last Name</h4>
+              <input
+                name="lastName"
+                rows="6"
+                class="form-control"
+                [(ngModel)]="user.lastName">
+              <h4>Date of Birth</h4>
+              <input
+                name="dateOfBirth"
+                rows="6"
+                class="form-control"
+                [(ngModel)]="user.dateOfBirth"
+                bsDatepicker
+                (ngModelChange)="user.dateOfBirth = $event.toLocaleDateString()"
+                [bsConfig]="bsConfig">
+            </form>
+          </tab> -->
+          <tab heading="Saved Festivals"></tab>
+          <tab heading="My Rentals"></tab>
+        </tabset>
+      </div>
+    </div>
+  </div>
+</div>

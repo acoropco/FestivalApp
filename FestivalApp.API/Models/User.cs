@@ -13,5 +13,6 @@ namespace FestivalApp.API.Models
         // public string City { get; set; }
         public virtual ICollection<UserRole> UserRoles { get; set; }
         public virtual ICollection<Rental> Rentals { get; set; }
+        public virtual ICollection<UserFestival> UserFestivals { get; set; }
     }
 }

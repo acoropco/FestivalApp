@@ -9,5 +9,6 @@ namespace FestivalApp.API.Dtos {
     public DateTime EndDate { get; set; }
     public string Location { get; set; }
     public string City { get; set; }
+    public string TicketUrl { get; set; }
   }
 }

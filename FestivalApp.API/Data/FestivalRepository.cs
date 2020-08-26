@@ -22,6 +22,10 @@ namespace FestivalApp.API.Data {
       return await _context.Festivals.FirstOrDefaultAsync(f => f.Id == id);
     }
 
+    public async Task<User> GetUser (int id) {
+      return await _context.Users.FirstOrDefaultAsync(u => u.Id == id);
+    }
+
     public async Task<List<Festival>> GetFestivals () {
       var festivals = _context.Festivals.OrderBy(f => f.StartDate);
 
@@ -32,5 +36,10 @@ namespace FestivalApp.API.Data {
       return await _context.SaveChangesAsync () > 0;
     }
 
+    public async Task<UserFestival> GetLike(int userId, int festivalId)
+    {
+      return await _context.UserFestivals.FirstOrDefaultAsync(uf =>
+        uf.UserId == userId && uf.FestivalId == festivalId);
+    }
   }
 }

@@ -53,7 +53,7 @@ namespace FestivalApp.API.Controllers {
       var result = await _signInManager.CheckPasswordSignInAsync (user, userForLoginDto.Password, false);
 
       if (result.Succeeded) {
-        var appUser = _mapper.Map<UserForSiteDto>(user);
+        var appUser = _mapper.Map<UserProfileDto>(user);
         return Ok (new {
           token = GenerateToken (user).Result,
           user = appUser

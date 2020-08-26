@@ -14,6 +14,7 @@ namespace FestivalApp.API.Data
         public DbSet<Rental> Rentals { get; set; }
         public DbSet<Festival> Festivals { get; set; }
         public DbSet<RentalPhoto> RentalPhotos { get; set; }
+        public DbSet<UserFestival> UserFestivals { get; set; }
         
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -32,6 +33,19 @@ namespace FestivalApp.API.Data
                     .HasForeignKey(ur => ur.UserId)
                     .IsRequired();
             });
+
+            builder.Entity<UserFestival>()
+              .HasKey(k => new {k.UserId, k.FestivalId});
+            
+            builder.Entity<UserFestival>()
+              .HasOne(sf => sf.User)
+              .WithMany(sf => sf.UserFestivals)
+              .HasForeignKey(sf => sf.UserId);
+
+            builder.Entity<UserFestival>()
+              .HasOne(sf => sf.Festival)
+              .WithMany(sf => sf.UserFestivals)
+              .HasForeignKey(sf => sf.FestivalId); 
         }
     }
 }
