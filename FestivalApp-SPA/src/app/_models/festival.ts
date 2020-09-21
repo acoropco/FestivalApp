@@ -7,4 +7,5 @@ export interface Festival {
   location: string;
   city: string;
   ticketUrl: string;
+  isLiked: boolean;
 }

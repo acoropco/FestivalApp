@@ -89,6 +89,11 @@ namespace FestivalApp.API
                     .Build();
 
                 options.Filters.Add(new AuthorizeFilter(policy));
+            })
+            .AddNewtonsoftJson(opt => 
+            {
+                opt.SerializerSettings.ReferenceLoopHandling =
+                Newtonsoft.Json.ReferenceLoopHandling.Ignore;
             });
 
             services.AddCors();

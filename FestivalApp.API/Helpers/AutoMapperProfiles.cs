@@ -15,6 +15,9 @@ namespace FestivalApp.API.Helpers
             CreateMap<FestivalForListDto, Festival>();
             CreateMap<User, UserProfileDto>();
             CreateMap<UserProfileDto, User>();
+            CreateMap<RentalForCreationDto, Rental>();
+            CreateMap<Rental, RentalForListDto>();
+            CreateMap<UserEditDto, User>();
         }
     }
 }

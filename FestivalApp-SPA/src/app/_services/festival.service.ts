@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Festival } from '../_models/festival';
 import { environment } from 'src/environments/environment';
 import { User } from '../_models/user';
+import { Rental } from '../_models/rental';
 
 @Injectable({
   providedIn: 'root',
@@ -12,8 +13,12 @@ export class FestivalService {
 
   constructor(private http: HttpClient) {}
 
-  getFestivals() {
-    return this.http.get<Festival[]>(this.baseUrl + 'festivals');
+  getFestivals(userId: number) {
+    return this.http.get<Festival[]>(this.baseUrl + 'festivals/' + userId);
+  }
+
+  getRentals() {
+    return this.http.get<Rental[]>(this.baseUrl + 'rentals');
   }
 
   getUser(id: number) {

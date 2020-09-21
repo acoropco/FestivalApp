@@ -10,5 +10,6 @@ namespace FestivalApp.API.Dtos {
     public string Location { get; set; }
     public string City { get; set; }
     public string TicketUrl { get; set; }
+    public bool IsLiked { get; set; }
   }
 }

@@ -1,18 +1,15 @@
 using System;
-using System.Collections.Generic;
 
-namespace FestivalApp.API.Models
+namespace FestivalApp.API.Dtos
 {
-  public class Rental
+  public class RentalForListDto
   {
     public int Id { get; set; }
     public string Name { get; set; }
     public string Location { get; set; }
     public DateTime Created { get; set; }
-    public virtual User User { get; set; }
     public int UserId { get; set; }
-    public virtual Festival Festival { get; set; }
     public int FestivalId { get; set; }
-    public virtual ICollection<RentalPhoto> RentalPhotos { get; set; }
+    public string ThumbnailUrl { get; set; }
   }
 }

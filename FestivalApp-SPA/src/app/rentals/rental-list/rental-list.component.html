@@ -1,3 +1,19 @@
-<p>
-  rental-list works!
-</p>
+<div class="row">
+  <div class="col-sm-4">
+    <div *ngFor="let rental of rentals">
+      <div [ngClass]="{'isSelected' : rental.isSelected}" 
+        class="card rentalElement" 
+        (click)="selectRental(rental)">
+        <div>
+          <strong>{{ rental.name }}</strong>
+        </div>
+        <div>
+          <p>{{ rental.location }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-8 card">
+    <app-rental-card [rental]="currentRental"></app-rental-card>
+  </div>
+</div>

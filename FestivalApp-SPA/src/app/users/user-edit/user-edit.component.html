@@ -1,16 +1,16 @@
 <div class="container mt-4">
   <div class="row">
-    <div class="col-sm-4">
+    <div class="col-md-auto">
       <h1>Your Profile</h1>
     </div>
-    <div class="col-sm-8">
-      <!-- <div *ngIf="editForm.dirty" class="alert alert-info">
+    <div class="col">
+      <div *ngIf="editForm.dirty" class="alert alert-info">
         <strong>Information:</strong> You have made changes. Any unsaved changes will be lost!
-      </div> -->
+      </div>
     </div>
   </div>
   <div class="row">
-    <div class="col-sm-4">
+    <div class="col">
       <div class="card">
         <div class="card-body">
           <div>
@@ -25,42 +25,34 @@
             <strong>Date of Birth:</strong>
             <p>{{user.dateOfBirth | date:"dd-MMM-yyyy"}}</p>
           </div>
-          <div class="card-footer">
-            <button form="editForm" class="btn btn-success btn-block">Save Changes</button>
-          </div>
         </div>
       </div>
     </div>
-    <div class="col-sm-8">
+  </div>
+  <div class="row">
+    <div class="col">
       <div class="tab-panel">
         <tabset class="member-tabset">
-          <!-- <tab heading="Edit Profile">
-            <form #editForm="ngForm" id="editForm" (ngSubmit)="updateUser()">
+          <tab heading="Edit Profile">
+            <button class="btn btn-info btn-block" (click)="showForm()">Edit User Data</button>
+            <form #editForm="ngForm" id="editForm" class="mt-2" (ngSubmit)="updateUser()" [hidden]="isFormHidden">
               <h4>First Name</h4>
-              <input
-                name="firstName"
-                rows="6"
-                class="form-control"
-                [(ngModel)]="user.firstName">
+              <input name="firstName" rows="6" class="form-control" [(ngModel)]="user.firstName">
               <h4>Last Name</h4>
-              <input
-                name="lastName"
-                rows="6"
-                class="form-control"
-                [(ngModel)]="user.lastName">
+              <input name="lastName" rows="6" class="form-control" [(ngModel)]="user.lastName">
               <h4>Date of Birth</h4>
-              <input
-                name="dateOfBirth"
-                rows="6"
-                class="form-control"
-                [(ngModel)]="user.dateOfBirth"
-                bsDatepicker
-                (ngModelChange)="user.dateOfBirth = $event.toLocaleDateString()"
-                [bsConfig]="bsConfig">
+              <input name="dateOfBirth" rows="6" class="form-control" [(ngModel)]="user.dateOfBirth" bsDatepicker [bsConfig]="bsConfig">
+              <div class="text-center">
+                <button [disabled]="!editForm.dirty" form="editForm" class="btn btn-primary mt-4">Save Changes</button>
+              </div>
             </form>
-          </tab> -->
+            <button class="btn btn-info btn-block mt-3" (click)="showEmail()">Change Email Addresss</button>
+            <button class="btn btn-info btn-block mt-3" (click)="showPassword()">Reset Password</button>
+          </tab>
           <tab heading="Saved Festivals"></tab>
-          <tab heading="My Rentals"></tab>
+          <tab heading="My Rentals">
+            <i class="fa fa-plus-square fa-5x" aria-hidden="true"></i>
+          </tab>
         </tabset>
       </div>
     </div>

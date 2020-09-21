@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../_services/auth.service';
 import { Router } from '@angular/router';
 import { User } from '../_models/user';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-nav',
@@ -13,13 +14,19 @@ export class NavComponent implements OnInit {
 
   constructor(
     public authService: AuthService,
-    private router: Router) { }
+    private router: Router,
+    private toastrService: ToastrService
+    ) { }
 
   ngOnInit(): void {
   }
 
   login() {
-    this.authService.login(this.model).subscribe();
+    this.authService.login(this.model).subscribe(() => {
+      this.toastrService.info('Logged in!');
+    }, error => {
+      this.toastrService.error('Incorrect credentials!');
+    });
   }
 
   loggedIn() {
@@ -32,6 +39,7 @@ export class NavComponent implements OnInit {
     this.authService.decodedToken = null;
     this.authService.currentUser = null;
     this.router.navigate(['/home']);
+    this.toastrService.warning('Logged out!');
   }
 
 }

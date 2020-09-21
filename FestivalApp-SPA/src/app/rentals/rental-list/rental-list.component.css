@@ -1,0 +1,13 @@
+.rentalElement {
+  cursor: pointer;
+  padding: 1%;
+  background-color: aliceblue;
+}
+
+.rentalElement:hover {
+  background-color: paleturquoise;
+}
+
+.isSelected {
+  background-color: paleturquoise;
+}

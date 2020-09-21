@@ -33,11 +33,11 @@ namespace FestivalApp.API.Controllers
     }
 
     [HttpPut("{id}")]
-    public async Task<IActionResult> UpdateUser(int id, UserProfileDto userProfileDto)
+    public async Task<IActionResult> UpdateUser(int id, UserEditDto userEditDto)
     {
       var userFromRepo = await _repo.GetUser(id);
 
-      _mapper.Map(userProfileDto, userFromRepo);
+      _mapper.Map(userEditDto, userFromRepo);
 
       if (await _repo.SaveAll())
         return NoContent();

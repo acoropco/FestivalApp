@@ -52,9 +52,14 @@
 }
 
 i.fa.fa-bolt {
+  /* text-shadow: 0 0 10px #000; */
+  text-shadow: 0.5px 0 #000, 0 0.5px #000, 0.5px 0 #000, 0 4px #000;
+}
+
+.isUnliked {
   color: white;
 }
 
-i.fa.fa-bolt:hover {
-  color: darkorange;
+.isLiked {
+  color: gold;
 }

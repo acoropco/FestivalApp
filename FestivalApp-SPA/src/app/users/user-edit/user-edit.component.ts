@@ -5,6 +5,8 @@ import { ActivatedRoute } from '@angular/router';
 import { FestivalService } from 'src/app/_services/festival.service';
 import { AuthService } from 'src/app/_services/auth.service';
 import { BsDatepickerConfig } from 'ngx-bootstrap/datepicker';
+import { DatePipe } from '@angular/common';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-user-edit',
@@ -13,24 +15,30 @@ import { BsDatepickerConfig } from 'ngx-bootstrap/datepicker';
 })
 export class UserEditComponent implements OnInit {
   user: User;
+  isFormHidden = true;
+  isEmailHidden = true;
+  isPasswordHidden = true;
   bsConfig: Partial<BsDatepickerConfig>;
-  // @ViewChild('editForm', {static: true}) editForm: NgForm;
-  // @HostListener('window:beforeunload', ['$event'])
-  // unloadNotification($event: any) {
-  //   if (this.editForm.dirty) {
-  //     $event.returnValue = true;
-  //   }
-  // }
+  @ViewChild('editForm', {static: true}) editForm: NgForm;
+  @HostListener('window:beforeunload', ['$event'])
+  unloadNotification($event: any) {
+    if (this.editForm.dirty) {
+      $event.returnValue = true;
+    }
+  }
 
   constructor(
     private route: ActivatedRoute,
     private festivalService: FestivalService,
-    private authService: AuthService
+    private authService: AuthService,
+    private datePipe: DatePipe,
+    private toastrService: ToastrService
   ) { }
 
   ngOnInit() {
     this.route.data.subscribe(data => {
       this.user = data.user;
+      this.user.dateOfBirth = new Date(this.datePipe.transform(this.user.dateOfBirth, 'dd-MMM-yyyy'));
     });
 
     this.bsConfig = {
@@ -40,12 +48,29 @@ export class UserEditComponent implements OnInit {
   }
 
   updateUser() {
+    this.user.dateOfBirth = new Date(this.datePipe.transform(this.user.dateOfBirth, 'yyyy-MM-dd'));
     this.festivalService.updateUser(this.authService.decodedToken.nameid, this.user)
     .subscribe(next => {
-      // this.editForm.reset();
+      this.isFormHidden = true;
+      this.authService.currentUser.firstName = this.user.firstName;
+      this.authService.currentUser.lastName = this.user.lastName;
+      this.authService.currentUser.dateOfBirth = this.user.dateOfBirth;
+      this.toastrService.success('User updated successfully!');
     }, error => {
-      console.log(error);
+      this.toastrService.error('Failed to update user!');
     });
+  }
+
+  showForm() {
+    this.isFormHidden = !this.isFormHidden;
+  }
+
+  showEmail() {
+    this.isEmailHidden = !this.isEmailHidden;
+  }
+
+  showPassword() {
+    this.isPasswordHidden = !this.isPasswordHidden;
   }
 
 }

@@ -5,6 +5,7 @@ import { CustomValidators } from 'ng2-validation';
 import { AuthService } from '../_services/auth.service';
 import { User } from '../_models/user';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-register',
@@ -20,7 +21,8 @@ export class RegisterComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private authService: AuthService,
-    private router: Router) { }
+    private router: Router,
+    private toastrService: ToastrService) { }
 
   ngOnInit(): void {
     this.bsConfig = {
@@ -51,11 +53,13 @@ export class RegisterComponent implements OnInit {
     if (this.registerForm.valid) {
       this.user = Object.assign({}, this.registerForm.value);
       this.authService.register(this.user).subscribe(() => {
-        console.log('Registration successsful');
+        this.toastrService.success('Registration successsful!');
+        this.cancel();
       }, error => {
-        console.log(error);
+        this.toastrService.error('Failed to register!');
       }, () => {
         this.authService.login(this.user).subscribe(() => {
+          this.toastrService.info('Logged in!');
           this.router.navigate(["/home"]);
         });
       });

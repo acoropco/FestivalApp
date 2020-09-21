@@ -22,23 +22,27 @@ namespace FestivalApp.API.Controllers
       _repo = repo;
     }
 
-    [HttpGet]
-    public async Task<IActionResult> GetFestivals()
+    [HttpGet("{userId}")]
+    public async Task<IActionResult> GetFestivals(int userId)
     {
       var festivalsfromRepo = await _repo.GetFestivals();
+      var likedFestivalsByUser = await _repo.GetLikedFestivalsId(userId);
       var festivalsForList = _mapper.Map<IEnumerable<FestivalForListDto>>(festivalsfromRepo);
+
+      foreach(var festival in festivalsForList)
+        festival.IsLiked = likedFestivalsByUser.Contains(festival.Id) ? true : false;
 
       return Ok(festivalsForList);
     }
 
-    [HttpGet("{id}", Name = "GetFestival")]
-    public async Task<IActionResult> GetFestival(int id)
-    {
-      var festivalFromRepo = await _repo.GetFestival(id);
-      var festivalForList = _mapper.Map<FestivalForListDto>(festivalFromRepo);
+    // [HttpGet("{id}", Name = "GetFestival")]
+    // public async Task<IActionResult> GetFestival(int id)
+    // {
+    //   var festivalFromRepo = await _repo.GetFestival(id);
+    //   var festivalForList = _mapper.Map<FestivalForListDto>(festivalFromRepo);
 
-      return Ok(festivalForList);
-    }
+    //   return Ok(festivalForList);
+    // }
 
     [HttpPost]
     public async Task<IActionResult> AddFestival(FestivalForCreationDto festivalForCreationDto)

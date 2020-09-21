@@ -4,16 +4,16 @@
     <ul class="list-inline member-icons animate text-center">
       <li class="list-inline-item">
         <button class="btn btn-primary" [routerLink]="['/rentals']">
-          <i class="fa fa-home"> Rentals</i>
+          <i class="fa fa-home" > Rentals</i>
         </button>
       </li>
       <li class="list-inline-item">
         <button class="btn btn-success">
-          <a style="color: inherit; text-decoration: inherit;" href="{{festival.ticketUrl}}"><i class="fa fa-ticket"> Ticket</i></a>
+          <a style="color: inherit; text-decoration: inherit;" (click)="goToLink(festival.ticketUrl)"><i class="fa fa-ticket"> Ticket</i></a>
         </button>
       </li>
     </ul>
-    <a class="favorite-icon animate" title="Add to Favorites" (click)="sendLike()"><i class="fa fa-bolt fa-3x"></i></a>
+    <a class="favorite-icon animate" [ngClass]="[festival.isLiked ? 'isLiked' : 'isUnliked']" title="Add to Favorites" (click)="sendLike()"><i class="fa fa-bolt fa-3x"></i></a>
   </div>
   <div class="card-body p-1">
     <h6 class="card-title text-center mb-1">

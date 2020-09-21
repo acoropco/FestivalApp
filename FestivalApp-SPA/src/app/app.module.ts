@@ -8,6 +8,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { JwtModule } from '@auth0/angular-jwt';
 import { TabsModule } from 'ngx-bootstrap/tabs';
+import { ToastrModule } from 'ngx-toastr';
 
 import { AppComponent } from './app.component';
 import { RegisterComponent } from './register/register.component';
@@ -23,6 +24,7 @@ import { RentalListComponent } from './rentals/rental-list/rental-list.component
 import { RentalCardComponent } from './rentals/rental-card/rental-card.component';
 import { UserEditComponent } from './users/user-edit/user-edit.component';
 import { UserDetailComponent } from './users/user-detail/user-detail.component';
+import { DatePipe } from '@angular/common';
 
 export function tokenGetter() {
   return localStorage.getItem('token');
@@ -54,6 +56,9 @@ export class CustomHammerConfig extends HammerGestureConfig  {
     HttpClientModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
+    ToastrModule.forRoot({
+      positionClass: 'toast-bottom-right'
+    }),
     BsDropdownModule.forRoot(),
     RouterModule.forRoot(appRoutes),
     BsDatepickerModule.forRoot(),
@@ -70,6 +75,7 @@ export class CustomHammerConfig extends HammerGestureConfig  {
     FestivalListResolver,
     UserEditResolver,
     RentalListResolver,
+    DatePipe,
     { provide: HAMMER_GESTURE_CONFIG, useClass: CustomHammerConfig }
   ],
   bootstrap: [AppComponent]
