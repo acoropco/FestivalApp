@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FestivalService } from 'src/app/_services/festival.service';
 import { Rental } from 'src/app/_models/rental';
-import { map } from 'rxjs/operators';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-rental-list',
@@ -12,14 +12,18 @@ export class RentalListComponent implements OnInit {
   rentals: Rental[];
   currentRental: Rental;
 
-  constructor(private festivalService: FestivalService) { }
+  constructor(
+    private festivalService: FestivalService,
+    private spinner: NgxSpinnerService) { }
 
   ngOnInit() {
+    this.spinner.show();
     this.festivalService.getRentals()
     .subscribe(data => {
       this.rentals = data;
       this.currentRental = this.rentals[0];
       this.currentRental.isSelected = true;
+      this.spinner.hide();
     });
   }
 

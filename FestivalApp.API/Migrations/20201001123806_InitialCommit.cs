@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace FestivalApp.API.Migrations
 {
-    public partial class InitialMigration : Migration
+    public partial class InitialCommit : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -184,7 +184,12 @@ namespace FestivalApp.API.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     Name = table.Column<string>(nullable: true),
-                    Location = table.Column<string>(nullable: true),
+                    County = table.Column<string>(nullable: true),
+                    City = table.Column<string>(nullable: true),
+                    Street = table.Column<string>(nullable: true),
+                    Description = table.Column<string>(nullable: true),
+                    Price = table.Column<int>(nullable: false),
+                    Created = table.Column<DateTime>(nullable: false),
                     UserId = table.Column<int>(nullable: false),
                     FestivalId = table.Column<int>(nullable: false)
                 },

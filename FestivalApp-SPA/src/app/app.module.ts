@@ -9,6 +9,8 @@ import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { JwtModule } from '@auth0/angular-jwt';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { ToastrModule } from 'ngx-toastr';
+import { NgxSpinnerModule } from 'ngx-spinner';
+import { AgmCoreModule } from '@agm/core';
 
 import { AppComponent } from './app.component';
 import { RegisterComponent } from './register/register.component';
@@ -25,6 +27,9 @@ import { RentalCardComponent } from './rentals/rental-card/rental-card.component
 import { UserEditComponent } from './users/user-edit/user-edit.component';
 import { UserDetailComponent } from './users/user-detail/user-detail.component';
 import { DatePipe } from '@angular/common';
+import { environment } from 'src/environments/environment';
+import { GoogleMapsComponent } from './google-maps/google-maps.component';
+import { SafePipe } from 'src/app/pipes/safe.pipe';
 
 export function tokenGetter() {
   return localStorage.getItem('token');
@@ -48,14 +53,20 @@ export class CustomHammerConfig extends HammerGestureConfig  {
     RentalListComponent,
     RentalCardComponent,
     UserEditComponent,
-    UserDetailComponent
-  ],
+    UserDetailComponent,
+    GoogleMapsComponent,
+    SafePipe
+   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpClientModule,
     ReactiveFormsModule,
+    AgmCoreModule.forRoot({
+      apiKey: environment.googleMapsApiKey
+    }),
     BrowserAnimationsModule,
+    NgxSpinnerModule,
     ToastrModule.forRoot({
       positionClass: 'toast-bottom-right'
     }),

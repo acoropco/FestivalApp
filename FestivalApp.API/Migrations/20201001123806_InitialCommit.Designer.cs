@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FestivalApp.API.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20200903201203_RentalChange")]
-    partial class RentalChange
+    [Migration("20201001123806_InitialCommit")]
+    partial class InitialCommit
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -56,16 +56,28 @@ namespace FestivalApp.API.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
+                    b.Property<string>("City")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("County")
+                        .HasColumnType("TEXT");
+
                     b.Property<DateTime>("Created")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Description")
                         .HasColumnType("TEXT");
 
                     b.Property<int>("FestivalId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("Location")
+                    b.Property<string>("Name")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("Name")
+                    b.Property<int>("Price")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Street")
                         .HasColumnType("TEXT");
 
                     b.Property<int>("UserId")

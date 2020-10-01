@@ -54,16 +54,28 @@ namespace FestivalApp.API.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
+                    b.Property<string>("City")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("County")
+                        .HasColumnType("TEXT");
+
                     b.Property<DateTime>("Created")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Description")
                         .HasColumnType("TEXT");
 
                     b.Property<int>("FestivalId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("Location")
+                    b.Property<string>("Name")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("Name")
+                    b.Property<int>("Price")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Street")
                         .HasColumnType("TEXT");
 
                     b.Property<int>("UserId")

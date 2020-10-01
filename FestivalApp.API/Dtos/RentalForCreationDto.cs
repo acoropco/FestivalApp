@@ -7,7 +7,14 @@ namespace FestivalApp.API.Dtos
     [Required]
     public string Name { get; set; }
     [Required]
-    public string Location { get; set; }
+    public string County { get; set; }
+    [Required]
+    public string City { get; set; }
+    [Required]
+    public string Street { get; set; }
+    public string Description { get; set; }
+    [Required]
+    public int Price { get; set; }
     [Required]
     public int UserId { get; set; }
     [Required]

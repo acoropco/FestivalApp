@@ -8,12 +8,13 @@
           <strong>{{ rental.name }}</strong>
         </div>
         <div>
-          <p>{{ rental.location }}</p>
+          <p>{{ rental.county }}, {{ rental.city }}
+          <span style="float: right;"><strong>{{ rental.price }} RON</strong></span></p>
         </div>
       </div>
     </div>
   </div>
-  <div class="col-sm-8 card">
+  <div class="col-sm-8 card" *ngIf="currentRental!=null">
     <app-rental-card [rental]="currentRental"></app-rental-card>
   </div>
 </div>

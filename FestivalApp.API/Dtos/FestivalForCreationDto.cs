@@ -7,6 +7,7 @@ namespace FestivalApp.API.Dtos {
     public string Name { get; set; }
     [Required]
     public string ImageUrl { get; set; }
+    public string Description { get; set; }
     [Required]
     public DateTime StartDate { get; set; }
     [Required]
