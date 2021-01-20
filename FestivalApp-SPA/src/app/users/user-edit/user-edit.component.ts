@@ -15,9 +15,10 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class UserEditComponent implements OnInit {
   user: User;
-  isFormHidden = true;
+  isUserFormHidden = true;
   isEmailHidden = true;
   isPasswordHidden = true;
+  isRentalFormHidden = true;
   bsConfig: Partial<BsDatepickerConfig>;
   @ViewChild('editForm', {static: true}) editForm: NgForm;
   @HostListener('window:beforeunload', ['$event'])
@@ -51,7 +52,7 @@ export class UserEditComponent implements OnInit {
     this.user.dateOfBirth = new Date(this.datePipe.transform(this.user.dateOfBirth, 'yyyy-MM-dd'));
     this.festivalService.updateUser(this.authService.decodedToken.nameid, this.user)
     .subscribe(next => {
-      this.isFormHidden = true;
+      this.isUserFormHidden = true;
       this.authService.currentUser.firstName = this.user.firstName;
       this.authService.currentUser.lastName = this.user.lastName;
       this.authService.currentUser.dateOfBirth = this.user.dateOfBirth;
@@ -61,8 +62,8 @@ export class UserEditComponent implements OnInit {
     });
   }
 
-  showForm() {
-    this.isFormHidden = !this.isFormHidden;
+  showUserForm() {
+    this.isUserFormHidden = !this.isUserFormHidden;
   }
 
   showEmail() {
@@ -71,6 +72,10 @@ export class UserEditComponent implements OnInit {
 
   showPassword() {
     this.isPasswordHidden = !this.isPasswordHidden;
+  }
+
+  showRentalForm() {
+    this.isRentalFormHidden = !this.isRentalFormHidden;
   }
 
 }

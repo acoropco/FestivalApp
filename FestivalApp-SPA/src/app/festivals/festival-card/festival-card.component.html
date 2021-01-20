@@ -16,9 +16,9 @@
     <a class="favorite-icon animate" [ngClass]="[festival.isLiked ? 'isLiked' : 'isUnliked']" title="Add to Favorites" (click)="sendLike()"><i class="fa fa-bolt fa-3x"></i></a>
   </div>
   <div class="card-body p-1">
-    <h6 class="card-title text-center mb-1">
+    <h2 class="card-title text-center mb-1">
       {{festival.name}}
-    </h6>
+    </h2>
     <p class="card-text text-muted text-center"><strong>{{festival.startDate | date:"dd-MMM"}}</strong> - <strong>{{festival.endDate | date:"dd-MMM"}}</strong></p>
     <p class="card-text text-muted text-center">{{festival.location}}</p>
     <p class="card-text text-muted text-center">{{festival.city}}</p>

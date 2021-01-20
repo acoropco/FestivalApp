@@ -34,8 +34,8 @@
       <div class="tab-panel">
         <tabset class="member-tabset">
           <tab heading="Edit Profile">
-            <button class="btn btn-info btn-block" (click)="showForm()">Edit User Data</button>
-            <form #editForm="ngForm" id="editForm" class="mt-2" (ngSubmit)="updateUser()" [hidden]="isFormHidden">
+            <button class="btn btn-info btn-block" (click)="showUserForm()">Edit User Data</button>
+            <form #editForm="ngForm" id="editForm" class="mt-2" (ngSubmit)="updateUser()" [hidden]="isUserFormHidden">
               <h4>First Name</h4>
               <input name="firstName" rows="6" class="form-control" [(ngModel)]="user.firstName">
               <h4>Last Name</h4>
@@ -51,7 +51,8 @@
           </tab>
           <tab heading="Saved Festivals"></tab>
           <tab heading="My Rentals">
-            <i class="fa fa-plus-square fa-5x" aria-hidden="true"></i>
+            <i class="fa fa-plus-square fa-5x" aria-hidden="true" (click)="showRentalForm()"></i>
+            <app-rental-detailed [isRentalFormHidden]="isRentalFormHidden" *ngIf="!isRentalFormHidden"></app-rental-detailed>
           </tab>
         </tabset>
       </div>

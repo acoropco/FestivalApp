@@ -1,0 +1,22 @@
+<div class="container center mt-5 isDisplayed animate">
+  <div class="row">
+    <mat-card>
+      <form #editForm="ngForm" id="addRentalForm" (ngSubmit)="addRental()">
+        <label for="name">
+          <h4>Name</h4>
+        </label>
+        <input type="text" class="form-control" name="name">
+        <h4>Description</h4>
+        <textarea name="description" rows="6" class="form-control">
+        </textarea>
+        <h4>Location Details</h4>
+        <div class="form-inline">
+          <label for="city">City</label>
+          <input type="text" class="form-control" name="city">
+          <label for="country">Country</label>
+          <input type="text" class="form-control" name="country">
+        </div>
+      </form>
+    </mat-card>
+  </div>
+</div>

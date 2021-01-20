@@ -11,6 +11,8 @@ import { TabsModule } from 'ngx-bootstrap/tabs';
 import { ToastrModule } from 'ngx-toastr';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { AgmCoreModule } from '@agm/core';
+import { MatCardModule } from '@angular/material/card';
+import { MatButtonModule } from '@angular/material/button';
 
 import { AppComponent } from './app.component';
 import { RegisterComponent } from './register/register.component';
@@ -24,6 +26,7 @@ import { UserEditResolver } from './_resolvers/user-edit.resolver';
 import { RentalListResolver } from './_resolvers/rental-list.resolver';
 import { RentalListComponent } from './rentals/rental-list/rental-list.component';
 import { RentalCardComponent } from './rentals/rental-card/rental-card.component';
+import { RentalDetailedComponent } from './rentals/rental-detailed/rental-detailed.component';
 import { UserEditComponent } from './users/user-edit/user-edit.component';
 import { UserDetailComponent } from './users/user-detail/user-detail.component';
 import { DatePipe } from '@angular/common';
@@ -55,6 +58,7 @@ export class CustomHammerConfig extends HammerGestureConfig  {
     UserEditComponent,
     UserDetailComponent,
     GoogleMapsComponent,
+    RentalDetailedComponent,
     SafePipe
    ],
   imports: [
@@ -66,6 +70,8 @@ export class CustomHammerConfig extends HammerGestureConfig  {
       apiKey: environment.googleMapsApiKey
     }),
     BrowserAnimationsModule,
+    MatCardModule,
+    MatButtonModule,
     NgxSpinnerModule,
     ToastrModule.forRoot({
       positionClass: 'toast-bottom-right'
