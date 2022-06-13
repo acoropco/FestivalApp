@@ -40,6 +40,7 @@ export class RegisterComponent implements OnInit {
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
       dateOfBirth: [null, Validators.required],
+      clientURI: ['http://localhost:4200/emailconfirmation', Validators.required]
       // city: ['', Validators.required],
       // country: ['', Validators.required]
     }, {validator: this.passwordMatchValidator});
@@ -57,11 +58,6 @@ export class RegisterComponent implements OnInit {
         this.cancel();
       }, error => {
         this.toastrService.error('Failed to register!');
-      }, () => {
-        this.authService.login(this.user).subscribe(() => {
-          this.toastrService.info('Logged in!');
-          this.router.navigate(["/home"]);
-        });
       });
     }
   }

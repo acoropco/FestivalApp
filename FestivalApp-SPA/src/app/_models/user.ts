@@ -6,4 +6,5 @@ export interface User {
   lastName: string;
   dateOfBirth: Date;
   roles?: string;
+  clientURI: string;
 }

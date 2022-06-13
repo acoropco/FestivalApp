@@ -25,7 +25,7 @@ export class NavComponent implements OnInit {
     this.authService.login(this.model).subscribe(() => {
       this.toastrService.info('Logged in!');
     }, error => {
-      this.toastrService.error('Incorrect credentials!');
+      this.toastrService.error(error.error);
     });
   }
 

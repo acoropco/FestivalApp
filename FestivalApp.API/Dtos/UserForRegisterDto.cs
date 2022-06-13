@@ -21,6 +21,7 @@ namespace FestivalApp.API.Dtos
         // [Required]
         // public string City { get; set; }
         public DateTime Created { get; set; }
+        public string ClientURI { get; set; }
 
         public UserForRegisterDto()
         {

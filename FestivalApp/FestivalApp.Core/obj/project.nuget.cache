@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "IFb782tnLTUJgR/dppYynV360eaqxdHqatPnbJN6mdjFtU0uFGrm+RPgbalSSniZT8uvzF1cmlZkuhCiANEvIQ==",
+  "success": true,
+  "projectFilePath": "D:\\My Stuff\\OLD\\FestivalApp\\FestivalApp\\FestivalApp.Core\\FestivalApp.Core.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Adrian Coropco\\.nuget\\packages\\mediatr\\10.0.1\\mediatr.10.0.1.nupkg.sha512",
+    "C:\\Users\\Adrian Coropco\\.nuget\\packages\\mediatr.contracts\\1.0.1\\mediatr.contracts.1.0.1.nupkg.sha512"
+  ],
+  "logs": []
+}

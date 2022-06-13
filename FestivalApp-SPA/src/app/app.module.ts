@@ -33,6 +33,9 @@ import { DatePipe } from '@angular/common';
 import { environment } from 'src/environments/environment';
 import { GoogleMapsComponent } from './google-maps/google-maps.component';
 import { SafePipe } from 'src/app/pipes/safe.pipe';
+import { EmailConfirmationComponent } from './authentication/email-confirmation/email-confirmation.component';
+import { ForgotPasswordComponent } from './authentication/forgot-password/forgot-password.component';
+import { ResetPasswordComponent } from './authentication/reset-password/reset-password.component';
 
 export function tokenGetter() {
   return localStorage.getItem('token');
@@ -59,7 +62,10 @@ export class CustomHammerConfig extends HammerGestureConfig  {
     UserDetailComponent,
     GoogleMapsComponent,
     RentalDetailedComponent,
-    SafePipe
+    SafePipe,
+    EmailConfirmationComponent,
+    ForgotPasswordComponent,
+    ResetPasswordComponent
    ],
   imports: [
     BrowserModule,
