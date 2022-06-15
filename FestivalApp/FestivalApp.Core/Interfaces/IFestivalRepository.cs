@@ -1,4 +1,4 @@
-using FestivalApp.Domain.Models;
+using FestivalApp.Domain.Entities;
 
 namespace FestivalApp.Core.Interfaces
 {
@@ -10,18 +10,18 @@ namespace FestivalApp.Core.Interfaces
 
         Task<bool> SaveAll();
 
-        Task<List<Festival>> GetFestivals();
+        Task<List<FestivalEntity>> GetFestivals();
 
-        Task<Festival> GetFestival(int id);
+        Task<FestivalEntity> GetFestival(int id);
 
-        Task<User> GetUser(int id);
+        Task<UserEntity> GetUser(int id);
 
-        Task<UserFestival> GetLike(int userId, int festivalId);
+        Task<UserFestivalEntity> GetLike(int userId, int festivalId);
 
         Task<List<int>> GetLikedFestivalsId(int userId);
 
-        Task<List<Rental>> GetRentals();
+        Task<List<RentalEntity>> GetRentals();
 
-        Task<Rental> GetRental(int id);
+        Task<RentalEntity> GetRental(int id);
     }
 }

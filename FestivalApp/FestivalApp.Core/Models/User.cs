@@ -1,4 +1,4 @@
-namespace FestivalApp.Domain.Models
+namespace FestivalApp.Core.Models
 {
     public class User
     {
@@ -15,8 +15,6 @@ namespace FestivalApp.Domain.Models
         public DateTime DateOfBirth { get; set; }
 
         public DateTime Created { get; set; }
-
-        // public string City { get; set; }
 
         public List<Rental> Rentals { get; set; }
 

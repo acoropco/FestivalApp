@@ -1,4 +1,4 @@
-namespace FestivalApp.Domain.Models
+namespace FestivalApp.Core.Models
 {
     public class RentalPhoto
     {

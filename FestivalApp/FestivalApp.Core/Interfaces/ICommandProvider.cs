@@ -1,12 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using FestivalApp.Core.Commands.AddFestival;
+using FestivalApp.Core.Commands.LikeFestival;
+using FestivalApp.Core.Models;
 
 namespace FestivalApp.Core.Interfaces
 {
-    internal interface ICommandProvider
+    public interface ICommandProvider
     {
+        AddFestivalCommand AddFestivalCommand(Festival festival);
+
+        LikeFestivalCommand LikeFestivalCommand(int festivalId, int userId);
     }
 }

@@ -1,7 +1,7 @@
 using FestivalApp.Core.Interfaces;
 using FestivalApp.Infrastructure.Data;
-using FestivalApp.Infrastructure.Entities;
-using DomainModels = FestivalApp.Core.Models;
+using FestivalApp.Domain.Entities;
+using FestivalApp.Core.Models;
 using Microsoft.EntityFrameworkCore;
 using AutoMapper;
 
@@ -27,37 +27,29 @@ namespace FestivalApp.Infrastructure.Repositories
             _context.Remove(entity);
         }
 
-        public async Task<DomainModels.Festival> GetFestival(int id)
+        public async Task<FestivalEntity> GetFestival(int id)
         {
-            var festival = await _context.Festivals.FirstOrDefaultAsync(f => f.Id == id);
-
-            return _mapper.Map<DomainModels.Festival>(festival);
+            return await _context.Festivals.FirstOrDefaultAsync(f => f.Id == id);
         }
 
-        public async Task<DomainModels.User> GetUser(int id)
+        public async Task<UserEntity> GetUser(int id)
         {
-            var user = await _context.Users.FirstOrDefaultAsync(u => u.Id == id);
-
-            return _mapper.Map<DomainModels.User>(user);
+            return await _context.Users.FirstOrDefaultAsync(u => u.Id == id);
         }
 
-        public async Task<List<DomainModels.Festival>> GetFestivals()
+        public async Task<List<FestivalEntity>> GetFestivals()
         {
-            var festivals = await _context.Festivals.OrderBy(f => f.StartDate).ToListAsync();
-
-            return _mapper.Map<List<Festival>, List<DomainModels.Festival>>(festivals);
+            return await _context.Festivals.OrderBy(f => f.StartDate).ToListAsync();
         }
 
-        public async Task<bool> SaveAll()
+        public async Task SaveAll()
         {
-            return await _context.SaveChangesAsync() > 0;
+            await _context.SaveChangesAsync();
         }
 
-        public async Task<DomainModels.UserFestival> GetLike(int userId, int festivalId)
+        public async Task<UserFestivalEntity> GetLike(int userId, int festivalId)
         {
-            var userFestival = await _context.UserFestivals.FirstOrDefaultAsync(uf => uf.UserId == userId && uf.FestivalId == festivalId);
-
-            return _mapper.Map<DomainModels.UserFestival>(userFestival);
+            return await _context.UserFestivals.FirstOrDefaultAsync(uf => uf.UserId == userId && uf.FestivalId == festivalId);
         }
 
         public async Task<List<int>> GetLikedFestivalsId(int userId)
@@ -65,18 +57,14 @@ namespace FestivalApp.Infrastructure.Repositories
             return await _context.UserFestivals.Where(uf => uf.UserId == userId).Select(f => f.FestivalId).ToListAsync();
         }
 
-        public async Task<DomainModels.Rental> GetRental(int id)
+        public async Task<RentalEntity> GetRental(int id)
         {
-            var rental = await _context.Rentals.FirstOrDefaultAsync(r => r.Id == id);
-
-            return _mapper.Map<DomainModels.Rental>(rental);
+            return await _context.Rentals.FirstOrDefaultAsync(r => r.Id == id);
         }
 
-        public async Task<List<DomainModels.Rental>> GetRentals()
+        public async Task<List<RentalEntity>> GetRentals()
         {
-            var rentals = await _context.Rentals.OrderBy(r => r.Created).ToListAsync();
-
-            return _mapper.Map<List<Rental>, List<DomainModels.Rental>>(rentals);
+            return await _context.Rentals.OrderBy(r => r.Created).ToListAsync();
         }
     }
 }

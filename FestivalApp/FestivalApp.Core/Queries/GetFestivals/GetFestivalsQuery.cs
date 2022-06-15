@@ -1,4 +1,4 @@
-﻿using FestivalApp.Domain.Models;
+﻿using FestivalApp.Core.Models;
 using MediatR;
 
 namespace FestivalApp.Core.Queries.GetFestivals

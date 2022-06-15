@@ -3,18 +3,18 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.2.32526.322
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FestivalApp.API", "FestivalApp.API\FestivalApp.API.csproj", "{12F42F12-2752-4899-87DF-C9E335F4592B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FestivalApp.API", "FestivalApp.API\FestivalApp.API.csproj", "{12F42F12-2752-4899-87DF-C9E335F4592B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FestivalApp.Domain", "FestivalApp.Domain\FestivalApp.Domain.csproj", "{2E60F115-147B-446E-B464-12696B4B85F2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FestivalApp.Infrastructure", "FestivalApp.Infrastructure\FestivalApp.Infrastructure.csproj", "{FCBAB625-51D2-42D7-B772-97B8DA315E1A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FestivalApp.Infrastructure", "FestivalApp.Infrastructure\FestivalApp.Infrastructure.csproj", "{FCBAB625-51D2-42D7-B772-97B8DA315E1A}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FestivalApp.Core", "FestivalApp.Core\FestivalApp.Core.csproj", "{2F3FAB1A-FA4B-44FB-8903-668B10852DDA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FestivalApp.Core", "FestivalApp.Core\FestivalApp.Core.csproj", "{2F3FAB1A-FA4B-44FB-8903-668B10852DDA}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{55D069DC-EC41-4FAF-AFC5-FE6C268BFA2D}"
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FestivalApp.Domain", "FestivalApp.Domain\FestivalApp.Domain.csproj", "{8726E274-AC7F-4B4B-AA42-C8E4AD3E33B1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -26,10 +26,6 @@ Global
 		{12F42F12-2752-4899-87DF-C9E335F4592B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{12F42F12-2752-4899-87DF-C9E335F4592B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{12F42F12-2752-4899-87DF-C9E335F4592B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{2E60F115-147B-446E-B464-12696B4B85F2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{2E60F115-147B-446E-B464-12696B4B85F2}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{2E60F115-147B-446E-B464-12696B4B85F2}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{2E60F115-147B-446E-B464-12696B4B85F2}.Release|Any CPU.Build.0 = Release|Any CPU
 		{FCBAB625-51D2-42D7-B772-97B8DA315E1A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{FCBAB625-51D2-42D7-B772-97B8DA315E1A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FCBAB625-51D2-42D7-B772-97B8DA315E1A}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -38,6 +34,10 @@ Global
 		{2F3FAB1A-FA4B-44FB-8903-668B10852DDA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2F3FAB1A-FA4B-44FB-8903-668B10852DDA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2F3FAB1A-FA4B-44FB-8903-668B10852DDA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8726E274-AC7F-4B4B-AA42-C8E4AD3E33B1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8726E274-AC7F-4B4B-AA42-C8E4AD3E33B1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8726E274-AC7F-4B4B-AA42-C8E4AD3E33B1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8726E274-AC7F-4B4B-AA42-C8E4AD3E33B1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
