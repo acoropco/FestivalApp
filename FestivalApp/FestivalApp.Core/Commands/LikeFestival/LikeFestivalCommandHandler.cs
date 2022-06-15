@@ -16,7 +16,6 @@ namespace FestivalApp.Core.Commands.LikeFestival
 
         public async Task<Unit> Handle(LikeFestivalCommand request, CancellationToken cancellationToken)
         {
-            var likeEntity = await _festivalRepository.GetLike(request.UserId, request.FestivalId);
             var userEntity = await _festivalRepository.GetUser(request.UserId);
             var festivalEntity = await _festivalRepository.GetFestival(request.FestivalId);
 
@@ -24,6 +23,8 @@ namespace FestivalApp.Core.Commands.LikeFestival
             {
                 throw new NotFoundException();
             }
+
+            var likeEntity = await _festivalRepository.GetLike(request.UserId, request.FestivalId);
 
             if (likeEntity != null)
             {
