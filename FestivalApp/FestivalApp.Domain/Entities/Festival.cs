@@ -1,6 +1,6 @@
 namespace FestivalApp.Domain.Entities
 {
-    public class FestivalEntity
+    public class Festival
     {
       public int Id { get; set; }
 
@@ -18,8 +18,8 @@ namespace FestivalApp.Domain.Entities
 
       public string TicketUrl { get; set; }
 
-      public virtual ICollection<RentalEntity> Rentals { get; set; }
+      public virtual ICollection<Rental> Rentals { get; set; }
 
-      public virtual ICollection<UserFestivalEntity> UserFestivals { get; set; }
+      public virtual ICollection<UserFestival> UserFestivals { get; set; }
     }
 }

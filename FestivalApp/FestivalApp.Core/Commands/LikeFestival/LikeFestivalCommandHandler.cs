@@ -19,6 +19,7 @@ namespace FestivalApp.Core.Commands.LikeFestival
             var userEntity = await _festivalRepository.GetUser(request.UserId);
             var festivalEntity = await _festivalRepository.GetFestival(request.FestivalId);
 
+            // TODO handle exception better
             if (userEntity == null || festivalEntity == null)
             {
                 throw new NotFoundException();
@@ -32,7 +33,7 @@ namespace FestivalApp.Core.Commands.LikeFestival
             }
             else
             {
-                likeEntity = new UserFestivalEntity()
+                likeEntity = new UserFestival()
                 {
                     User = userEntity,
                     Festival = festivalEntity,

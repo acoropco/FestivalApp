@@ -6,7 +6,7 @@ using MediatR;
 
 namespace FestivalApp.Core.Queries.GetFestivals
 {
-    public class GetFestivalsQueryHandler : IRequestHandler<GetFestivalsQuery, List<Festival>>
+    public class GetFestivalsQueryHandler : IRequestHandler<GetFestivalsQuery, List<Models.FestivalModel>>
     {
         private readonly IFestivalRepository _festivalRepository;
         private readonly IMapper _mapper;
@@ -17,12 +17,12 @@ namespace FestivalApp.Core.Queries.GetFestivals
             _mapper = mapper;
         }
 
-        public async Task<List<Festival>> Handle(GetFestivalsQuery request, CancellationToken cancellationToken)
+        public async Task<List<Models.FestivalModel>> Handle(GetFestivalsQuery request, CancellationToken cancellationToken)
         {
             var festivalEntities = await _festivalRepository.GetFestivals();
             var festivalsLikedByUser = await _festivalRepository.GetLikedFestivalsId(request.UserId);
 
-            var festivals = _mapper.Map<List<FestivalEntity>, List<Festival>>(festivalEntities);
+            var festivals = _mapper.Map<List<Festival>, List<FestivalModel>>(festivalEntities);
 
             foreach (var festival in festivals)
             {

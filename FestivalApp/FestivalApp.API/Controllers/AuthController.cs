@@ -1,5 +1,6 @@
 using AutoMapper;
 using FestivalApp.API.DTOs;
+using FestivalApp.Core.Interfaces;
 using FestivalApp.Core.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -17,14 +18,14 @@ namespace FestivalApp.API.Controllers
     [AllowAnonymous]
     public class AuthController : ControllerBase
     {
-        private readonly UserManager<User> _userManager;
-        private readonly SignInManager<User> _signInManager;
+        private readonly UserManager<UserModel> _userManager;
+        private readonly SignInManager<UserModel> _signInManager;
         private readonly IMapper _mapper;
         private readonly IConfiguration _config;
         private readonly IEmailSender _emailSender;
 
         public AuthController(IMapper mapper, IConfiguration config,
-          UserManager<User> userManager, SignInManager<User> signInManager, IEmailSender emailSender)
+          UserManager<UserModel> userManager, SignInManager<UserModel> signInManager, IEmailSender emailSender)
         {
             _config = config;
             _mapper = mapper;
@@ -33,7 +34,7 @@ namespace FestivalApp.API.Controllers
             _userManager = userManager;
         }
 
-        private async Task<string> GenerateToken(User user)
+        private async Task<string> GenerateToken(UserModel user)
         {
             var claims = new List<Claim> {
                 new Claim (ClaimTypes.NameIdentifier, user.Id.ToString()),
@@ -67,7 +68,7 @@ namespace FestivalApp.API.Controllers
         [HttpPost("register")]
         public async Task<IActionResult> Register(UserForRegisterDto userForRegisterDto)
         {
-            var userToCreate = _mapper.Map<User>(userForRegisterDto);
+            var userToCreate = _mapper.Map<UserModel>(userForRegisterDto);
             userToCreate.Email = userToCreate.UserName;
 
             var result = await _userManager.CreateAsync(userToCreate, userForRegisterDto.Password);

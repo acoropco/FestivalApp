@@ -8,16 +8,16 @@ namespace FestivalApp.API.MappingProfiles
     {
         public AutoMapperProfiles()
         {
-            CreateMap<UserForRegisterDto, User>();
-            CreateMap<User, UserForSiteDto>();
-            CreateMap<Festival, FestivalForListDto>();
-            CreateMap<FestivalForCreationDto, Festival>();
-            CreateMap<FestivalForListDto, Festival>();
-            CreateMap<User, UserProfileDto>();
-            CreateMap<UserProfileDto, User>();
-            CreateMap<RentalForCreationDto, Rental>();
-            CreateMap<Rental, RentalForListDto>();
-            CreateMap<UserEditDto, User>();
+            CreateMap<UserForRegisterDto, UserModel>();
+            CreateMap<UserModel, UserForSiteDto>();
+            CreateMap<FestivalModel, FestivalForListDto>();
+            CreateMap<FestivalForCreationDto, FestivalModel>();
+            CreateMap<FestivalForListDto, FestivalModel>();
+            CreateMap<UserModel, UserProfileDto>();
+            CreateMap<UserProfileDto, UserModel>();
+            CreateMap<RentalForCreationDto, RentalModel>();
+            CreateMap<RentalModel, RentalForListDto>();
+            CreateMap<UserEditDto, UserModel>();
         }
     }
 }

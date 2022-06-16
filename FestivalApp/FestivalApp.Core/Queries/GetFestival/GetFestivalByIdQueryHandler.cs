@@ -5,7 +5,7 @@ using MediatR;
 
 namespace FestivalApp.Core.Queries.GetFestival
 {
-    public class GetFestivalByIdQueryHandler : IRequestHandler<GetFestivalByIdQuery, Festival>
+    public class GetFestivalByIdQueryHandler : IRequestHandler<GetFestivalByIdQuery, FestivalModel>
     {
         private readonly IFestivalRepository _festivalRepository;
         private readonly IMapper _mapper;
@@ -16,11 +16,11 @@ namespace FestivalApp.Core.Queries.GetFestival
             _mapper = mapper;
         }
 
-        public async Task<Festival> Handle(GetFestivalByIdQuery request, CancellationToken cancellationToken)
+        public async Task<FestivalModel> Handle(GetFestivalByIdQuery request, CancellationToken cancellationToken)
         {
             var festivalEntity = await _festivalRepository.GetFestival(request.Id);
 
-            return _mapper.Map<Festival>(festivalEntity);
+            return _mapper.Map<FestivalModel>(festivalEntity);
         }
     }
 }

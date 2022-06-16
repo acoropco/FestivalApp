@@ -1,6 +1,6 @@
 namespace FestivalApp.Domain.Entities
 {
-    public class RentalEntity
+    public class Rental
   {
     public int Id { get; set; }
 
@@ -18,14 +18,14 @@ namespace FestivalApp.Domain.Entities
 
     public DateTime Created { get; set; }
 
-    public virtual UserEntity User { get; set; }
+    public virtual User User { get; set; }
 
     public int UserId { get; set; }
 
-    public virtual FestivalEntity Festival { get; set; }
+    public virtual Festival Festival { get; set; }
 
     public int FestivalId { get; set; }
 
-    public virtual ICollection<RentalPhotoEntity> RentalPhotos { get; set; }
+    public virtual ICollection<RentalPhoto> RentalPhotos { get; set; }
   }
 }

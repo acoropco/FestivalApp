@@ -6,7 +6,7 @@ namespace FestivalApp.Core.Interfaces
 {
     public interface ICommandProvider
     {
-        AddFestivalCommand AddFestivalCommand(Festival festival);
+        AddFestivalCommand AddFestivalCommand(FestivalModel festival);
 
         LikeFestivalCommand LikeFestivalCommand(int festivalId, int userId);
     }

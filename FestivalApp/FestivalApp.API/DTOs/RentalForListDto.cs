@@ -8,7 +8,6 @@ namespace FestivalApp.API.DTOs
 
         public string County { get; set; }
 
-
         public string City { get; set; }
 
         public string Street { get; set; }
@@ -19,9 +18,9 @@ namespace FestivalApp.API.DTOs
 
         public DateTime Created { get; set; }
 
-        public User User { get; set; }
+        public int UserId { get; set; }
 
-        public Festival Festival { get; set; }
+        public int FestivalId { get; set; }
 
         public string ThumbnailUrl { get; set; }
     }

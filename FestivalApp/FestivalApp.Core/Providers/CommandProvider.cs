@@ -7,7 +7,7 @@ namespace FestivalApp.Core.Providers
 {
     public class CommandProvider : ICommandProvider
     {
-        public AddFestivalCommand AddFestivalCommand(Festival festival)
+        public AddFestivalCommand AddFestivalCommand(FestivalModel festival)
         {
             return new AddFestivalCommand(festival);
         }

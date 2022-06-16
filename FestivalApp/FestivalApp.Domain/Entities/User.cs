@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Identity;
 
 namespace FestivalApp.Domain.Entities
 {
-    public class UserEntity : IdentityUser<int>
+    public class User : IdentityUser<int>
     {
         public string FirstName { get; set; }
 
@@ -12,10 +12,10 @@ namespace FestivalApp.Domain.Entities
 
         public DateTime Created { get; set; }
 
-        public virtual ICollection<UserRoleEntity> UserRoles { get; set; }
+        public virtual ICollection<UserRole> UserRoles { get; set; }
 
-        public virtual ICollection<RentalEntity> Rentals { get; set; }
+        public virtual ICollection<Rental> Rentals { get; set; }
 
-        public virtual ICollection<UserFestivalEntity> UserFestivals { get; set; }
+        public virtual ICollection<UserFestival> UserFestivals { get; set; }
     }
 }

@@ -27,13 +27,13 @@ namespace FestivalApp.API.Controllers
         }
 
         [HttpGet("{userId}")]
-        public async Task<ActionResult<List<Festival>>> GetFestivals(int userId)
+        public async Task<ActionResult<List<FestivalModel>>> GetFestivals(int userId)
         {
             var query = _queryProvider.GetFestivalsQuery(userId);
 
             var result = await _mediator.Send(query);
 
-            return Ok(_mapper.Map<List<Festival>, List<FestivalForListDto>>(result));
+            return Ok(_mapper.Map<List<FestivalModel>, List<FestivalForListDto>>(result));
         }
 
         [HttpGet("{id}", Name = "GetFestival")]
@@ -43,13 +43,13 @@ namespace FestivalApp.API.Controllers
 
             var result = await _mediator.Send(query);
 
-            return Ok(_mapper.Map<Festival, FestivalForListDto>(result));
+            return Ok(_mapper.Map<FestivalModel, FestivalForListDto>(result));
         }
 
         [HttpPost]
         public async Task<IActionResult> AddFestival(FestivalForCreationDto festivalForCreationDto)
         {
-            var festival = _mapper.Map<Festival>(festivalForCreationDto);
+            var festival = _mapper.Map<FestivalModel>(festivalForCreationDto);
 
             var command = _commandProvider.AddFestivalCommand(festival);
 

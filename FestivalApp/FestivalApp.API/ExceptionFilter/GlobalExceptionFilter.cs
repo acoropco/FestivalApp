@@ -3,16 +3,15 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.AspNetCore.WebUtilities;
 using System.Net.Mime;
-using System.Text;
 using System.Text.Json;
 
 namespace FestivalApp.API.ExceptionFilter
 {
-    public class ExceptionFilter : IExceptionFilter
+    public class GlobalExceptionFilter : IExceptionFilter
     {
-        private readonly ILogger<ExceptionFilter> _logger;
+        private readonly ILogger<GlobalExceptionFilter> _logger;
 
-        public ExceptionFilter(ILogger<ExceptionFilter> logger)
+        public GlobalExceptionFilter(ILogger<GlobalExceptionFilter> logger)
         {
             _logger = logger;
         }

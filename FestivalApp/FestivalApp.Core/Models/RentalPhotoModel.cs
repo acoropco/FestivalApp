@@ -1,14 +1,12 @@
-namespace FestivalApp.Domain.Entities
+namespace FestivalApp.Core.Models
 {
-    public class RentalPhotoEntity
+    public class RentalPhotoModel
     {
       public int Id { get; set; }
 
       public string Url { get; set; }
 
       public bool IsMain { get; set; }
-
-      public virtual RentalEntity Rental { get; set; }
 
       public int RentalId { get; set; }
     }

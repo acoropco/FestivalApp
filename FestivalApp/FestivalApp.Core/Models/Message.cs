@@ -13,7 +13,7 @@ namespace FestivalApp.Core.Models
         public Message(IEnumerable<string> to, string subject, string content)
         {
             To = new List<MailboxAddress>();
-            To.AddRange(to.Select(x => new MailboxAddress(x)));
+            To.AddRange(to.Select(x => MailboxAddress.Parse(x)));
             Subject = subject;
             Content = content;
         }

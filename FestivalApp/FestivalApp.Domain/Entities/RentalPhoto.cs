@@ -1,4 +1,4 @@
-namespace FestivalApp.Core.Models
+namespace FestivalApp.Domain.Entities
 {
     public class RentalPhoto
     {
@@ -7,6 +7,8 @@ namespace FestivalApp.Core.Models
       public string Url { get; set; }
 
       public bool IsMain { get; set; }
+
+      public virtual Rental Rental { get; set; }
 
       public int RentalId { get; set; }
     }

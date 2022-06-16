@@ -8,20 +8,20 @@ namespace FestivalApp.Core.Interfaces
 
         void Delete<T>(T entity) where T : class;
 
-        Task<bool> SaveAll();
+        Task SaveAll();
 
-        Task<List<FestivalEntity>> GetFestivals();
+        Task<List<Festival>> GetFestivals();
 
-        Task<FestivalEntity> GetFestival(int id);
+        Task<Festival> GetFestival(int id);
 
-        Task<UserEntity> GetUser(int id);
+        Task<User> GetUser(int id);
 
-        Task<UserFestivalEntity> GetLike(int userId, int festivalId);
+        Task<UserFestival> GetLike(int userId, int festivalId);
 
         Task<List<int>> GetLikedFestivalsId(int userId);
 
-        Task<List<RentalEntity>> GetRentals();
+        Task<List<Rental>> GetRentals();
 
-        Task<RentalEntity> GetRental(int id);
+        Task<Rental> GetRental(int id);
     }
 }

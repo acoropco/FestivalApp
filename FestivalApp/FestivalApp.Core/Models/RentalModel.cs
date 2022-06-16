@@ -1,6 +1,6 @@
 namespace FestivalApp.Core.Models
 {
-    public class Rental
+    public class RentalModel
     {
         public int Id { get; set; }
 
@@ -22,6 +22,6 @@ namespace FestivalApp.Core.Models
 
         public int FestivalId { get; set; }
 
-        public List<RentalPhoto> RentalPhotos { get; set; }
+        public List<RentalPhotoModel> RentalPhotos { get; set; }
     }
 }

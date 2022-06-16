@@ -1,6 +1,6 @@
 namespace FestivalApp.Core.Models
 {
-    public class Festival
+    public class FestivalModel
     {
         public int Id { get; set; }
 
@@ -20,8 +20,8 @@ namespace FestivalApp.Core.Models
 
         public bool IsLiked { get; set; }
 
-        public List<Rental> Rentals { get; set; }
+        public List<RentalModel> Rentals { get; set; }
 
-        public List<UserFestival> UserFestivals { get; set; }
+        public List<UserFestivalModel> UserFestivals { get; set; }
     }
 }

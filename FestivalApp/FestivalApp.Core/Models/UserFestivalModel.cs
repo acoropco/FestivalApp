@@ -1,6 +1,6 @@
 namespace FestivalApp.Core.Models
 {
-    public class UserFestival
+    public class UserFestivalModel
     {
         public int UserId { get; set; }
 

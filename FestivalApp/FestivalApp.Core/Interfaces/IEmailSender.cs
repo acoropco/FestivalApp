@@ -1,6 +1,6 @@
-using FestivalApp.Domain.Models;
+using FestivalApp.Core.Models;
 
-namespace FestivalApp.Core.Helpers
+namespace FestivalApp.Core.Interfaces
 {
     public interface IEmailSender
     {

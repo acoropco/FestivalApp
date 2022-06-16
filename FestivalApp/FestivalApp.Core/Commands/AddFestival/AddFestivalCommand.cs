@@ -5,9 +5,9 @@ namespace FestivalApp.Core.Commands.AddFestival
 {
     public class AddFestivalCommand : IRequest<int>
     {
-        public Festival Payload { get; set; }
+        public FestivalModel Payload { get; set; }
 
-        public AddFestivalCommand(Festival festival)
+        public AddFestivalCommand(FestivalModel festival)
         {
             Payload = festival;
         }
