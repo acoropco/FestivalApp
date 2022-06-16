@@ -40,14 +40,14 @@ namespace FestivalApp.Infrastructure.Data
               .HasKey(k => new { k.UserId, k.FestivalId });
 
             builder.Entity<UserFestival>()
-              .HasOne(sf => sf.User)
-              .WithMany(sf => sf.UserFestivals)
-              .HasForeignKey(sf => sf.UserId);
+              .HasOne(uf => uf.User)
+              .WithMany(uf => uf.UserFestivals)
+              .HasForeignKey(uf => uf.UserId);
 
             builder.Entity<UserFestival>()
-              .HasOne(sf => sf.Festival)
-              .WithMany(sf => sf.UserFestivals)
-              .HasForeignKey(sf => sf.FestivalId);
+              .HasOne(uf => uf.Festival)
+              .WithMany(uf => uf.UserFestivals)
+              .HasForeignKey(uf => uf.FestivalId);
         }
     }
 }

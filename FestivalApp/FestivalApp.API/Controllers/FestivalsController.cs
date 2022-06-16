@@ -6,11 +6,13 @@ using System.Security.Claims;
 using IQueryProvider = FestivalApp.Core.Interfaces.IQueryProvider;
 using FestivalApp.Core.Models;
 using FestivalApp.API.DTOs;
+using Microsoft.AspNetCore.Authorization;
 
 namespace FestivalApp.API.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
+    [AllowAnonymous]
     public class FestivalsController : ControllerBase
     {
         private readonly IMapper _mapper;
@@ -36,7 +38,7 @@ namespace FestivalApp.API.Controllers
             return Ok(_mapper.Map<List<FestivalModel>, List<FestivalForListDto>>(result));
         }
 
-        [HttpGet("{id}", Name = "GetFestival")]
+        [HttpGet("getFestival/{id}", Name = "GetFestival")]
         public async Task<IActionResult> GetFestival(int id)
         {
             var query = _queryProvider.GetFestivalByIdQuery(id);

@@ -33,6 +33,8 @@ namespace FestivalApp.API
             // Register Festival Services
             services.SetFestivalServicesDependencies(Configuration);
 
+            services.AddSwaggerGen();
+
             services.AddCors();
         }
 
@@ -41,6 +43,8 @@ namespace FestivalApp.API
         {
             if (env.IsDevelopment())
             {
+                app.UseSwagger();
+                app.UseSwaggerUI();
                 app.UseDeveloperExceptionPage();
             }
 

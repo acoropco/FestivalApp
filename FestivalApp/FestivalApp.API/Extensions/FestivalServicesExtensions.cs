@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using FestivalApp.API.ExceptionFilter;
 using FestivalApp.API.MappingProfiles;
+using FestivalApp.Core.Commands.AddFestival;
 using FestivalApp.Core.Helpers;
 using FestivalApp.Core.Interfaces;
 using FestivalApp.Core.Models;
@@ -101,7 +102,7 @@ namespace FestivalApp.API.Extensions
             });
 
             // Register MediatR and its providers
-            services.AddMediatR(typeof(Startup));
+            services.AddMediatR(typeof(AddFestivalCommand).Assembly);
             services.AddTransient<ICommandProvider, CommandProvider>();
             services.AddTransient<IQueryProvider, QueryProvider>();
 
