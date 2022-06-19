@@ -12,7 +12,7 @@ namespace FestivalApp.API.DTOs
 
         public DateTime EndDate { get; set; }
 
-        public string Location { get; set; }
+        public string Street { get; set; }
 
         public string City { get; set; }
 

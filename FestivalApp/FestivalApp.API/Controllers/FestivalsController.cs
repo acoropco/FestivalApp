@@ -70,7 +70,7 @@ namespace FestivalApp.API.Controllers
 
             var command = _commandProvider.LikeFestivalCommand(festivalId, userId);
 
-            var result = await _mediator.Send(command);
+            await _mediator.Send(command);
 
             return Ok();
         }

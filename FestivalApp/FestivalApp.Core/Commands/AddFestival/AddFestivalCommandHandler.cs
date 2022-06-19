@@ -18,7 +18,7 @@ namespace FestivalApp.Core.Commands.AddFestival
 
         public async Task<int> Handle(AddFestivalCommand request, CancellationToken cancellationToken)
         {
-            var festivalEntity = _mapper.Map<Festival>(request.Payload);
+            var festivalEntity = _mapper.Map<Festival>(request.Festival);
 
             _festivalRepository.Add(festivalEntity);
 

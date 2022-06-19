@@ -1,8 +1,10 @@
 using AutoMapper;
 using FestivalApp.API.DTOs;
 using FestivalApp.Core.Interfaces;
-using FestivalApp.Domain.Entities;
+using FestivalApp.Core.Models;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using IQueryProvider = FestivalApp.Core.Interfaces.IQueryProvider;
 
 namespace FestivalApp.API.Controllers
 {
@@ -10,48 +12,49 @@ namespace FestivalApp.API.Controllers
     [Route("api/[controller]")]
     public class RentalsController : ControllerBase
     {
-        private readonly IFestivalRepository _repo;
         private readonly IMapper _mapper;
+        private readonly IMediator _mediator;
+        private readonly IQueryProvider _queryProvider;
+        private readonly ICommandProvider _commandProvider;
 
-        public RentalsController(IFestivalRepository repo, IMapper mapper)
+        public RentalsController(IMapper mapper, IMediator mediator, IQueryProvider queryProvider, ICommandProvider commandProvider)
         {
             _mapper = mapper;
-            _repo = repo;
+            _mediator = mediator;
+            _queryProvider = queryProvider;
+            _commandProvider = commandProvider;
         }
 
         [HttpPost]
         public async Task<IActionResult> AddRental(RentalForCreationDto rentalForCreationDto)
         {
-            var rental = _mapper.Map<Rental>(rentalForCreationDto);
-            rental.Created = DateTime.Now;
+            var rental = _mapper.Map<RentalModel>(rentalForCreationDto);
 
-            _repo.Add(rental);
+            var command = _commandProvider.AddRentalCommand(rental);
 
-            await _repo.SaveAll();
+            var result = await _mediator.Send(command);
 
-            var rentalForListDto = _mapper.Map<RentalForListDto>(rental);
-            return CreatedAtRoute("GetRental", new { id = rentalForListDto.Id }, rentalForListDto);
-
-
-            throw new Exception("There was an error when adding this rental");
+            return CreatedAtRoute("GetRental", new { id = result }, result);
         }
 
-        [HttpGet("{id}", Name = "GetRental")]
+        [HttpGet("getRental/{id}", Name = "GetRental")]
         public async Task<IActionResult> GetRental(int id)
         {
-            var rental = await _repo.GetRental(id);
-            var rentalForList = _mapper.Map<RentalForListDto>(rental);
+            var query = _queryProvider.GetRentalByIdQuery(id);
 
-            return Ok(rentalForList);
+            var result = await _mediator.Send(query);
+
+            return Ok(result);
         }
 
         [HttpGet]
         public async Task<IActionResult> GetRentals()
         {
-            var rentals = await _repo.GetRentals();
-            var rentalsForList = _mapper.Map<IEnumerable<RentalForListDto>>(rentals);
+            var query = _queryProvider.GetRentalsQuery();
 
-            return Ok(rentalsForList);
+            var result = await _mediator.Send(query);
+
+            return Ok(result);
         }
     }
 }

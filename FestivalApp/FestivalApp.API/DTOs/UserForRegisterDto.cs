@@ -20,12 +20,6 @@ namespace FestivalApp.API.DTOs
         [Required]
         public DateTime DateOfBirth { get; set; }
 
-        // [Required]
-        // public string Country { get; set; }
-
-        // [Required]
-        // public string City { get; set; }
-
         public DateTime Created { get; set; }
 
         public string ClientURI { get; set; }

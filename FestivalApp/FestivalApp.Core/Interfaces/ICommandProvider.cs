@@ -1,4 +1,5 @@
 ﻿using FestivalApp.Core.Commands.AddFestival;
+using FestivalApp.Core.Commands.AddRental;
 using FestivalApp.Core.Commands.LikeFestival;
 using FestivalApp.Core.Models;
 
@@ -9,5 +10,7 @@ namespace FestivalApp.Core.Interfaces
         AddFestivalCommand AddFestivalCommand(FestivalModel festival);
 
         LikeFestivalCommand LikeFestivalCommand(int festivalId, int userId);
+
+        AddRentalCommand AddRentalCommand(RentalModel rental);
     }
 }
