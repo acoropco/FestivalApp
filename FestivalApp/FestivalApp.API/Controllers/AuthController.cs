@@ -2,10 +2,10 @@ using AutoMapper;
 using FestivalApp.API.DTOs;
 using FestivalApp.Core.Interfaces;
 using FestivalApp.Core.Models;
+using FestivalApp.Domain.Entities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
@@ -18,23 +18,32 @@ namespace FestivalApp.API.Controllers
     [AllowAnonymous]
     public class AuthController : ControllerBase
     {
-        private readonly UserManager<UserModel> _userManager;
-        private readonly SignInManager<UserModel> _signInManager;
+        private readonly UserManager<User> _userManager;
+        private readonly SignInManager<User> _signInManager;
+        private readonly IEmailMessageProvider _emailMessageProvider;
         private readonly IMapper _mapper;
         private readonly IConfiguration _config;
         private readonly IEmailSender _emailSender;
 
-        public AuthController(IMapper mapper, IConfiguration config,
-          UserManager<UserModel> userManager, SignInManager<UserModel> signInManager, IEmailSender emailSender)
+        private const string RegisterEmailSubject = "Email Confirmation Token";
+        private const string ResetPasswordEmailSubject = "Reset password Token";
+
+        public AuthController(UserManager<User> userManager,
+            SignInManager<User> signInManager,
+            IMapper mapper,
+            IConfiguration config,
+            IEmailMessageProvider emailMessageProvider,
+            IEmailSender emailSender)
         {
-            _config = config;
-            _mapper = mapper;
-            _signInManager = signInManager;
-            _emailSender = emailSender;
             _userManager = userManager;
+            _signInManager = signInManager;
+            _mapper = mapper;
+            _config = config;
+            _emailMessageProvider = emailMessageProvider;
+            _emailSender = emailSender;
         }
 
-        private async Task<string> GenerateToken(UserModel user)
+        private async Task<string> GenerateToken(User user)
         {
             var claims = new List<Claim> {
                 new Claim (ClaimTypes.NameIdentifier, user.Id.ToString()),
@@ -68,22 +77,28 @@ namespace FestivalApp.API.Controllers
         [HttpPost("register")]
         public async Task<IActionResult> Register(UserForRegisterDto userForRegisterDto)
         {
-            var userToCreate = _mapper.Map<UserModel>(userForRegisterDto);
-            userToCreate.Email = userToCreate.UserName;
+            var userEntity = _mapper.Map<User>(userForRegisterDto);
+            userEntity.Email = userEntity.UserName;
 
-            var result = await _userManager.CreateAsync(userToCreate, userForRegisterDto.Password);
+            var result = await _userManager.CreateAsync(userEntity, userForRegisterDto.Password);
 
             if (!result.Succeeded)
-                return BadRequest(result.Errors);
-
-            var token = await _userManager.GenerateEmailConfirmationTokenAsync(userToCreate);
-            var param = new Dictionary<string, string>
             {
-                { "token", token },
-                { "email", userToCreate.Email }
+                return BadRequest(result.Errors);
+            }
+
+            var token = await _userManager.GenerateEmailConfirmationTokenAsync(userEntity);
+            var emailMessageConfig = new EmailMessageConfiguration
+            {
+                Token = token,
+                EmailParam = userEntity.Email,
+                EmailTo = new List<string> { userEntity.Email },
+                ClientURI = userForRegisterDto.ClientURI,
+                Subject = RegisterEmailSubject
             };
-            var callback = QueryHelpers.AddQueryString(userForRegisterDto.ClientURI, param);
-            var message = new Message(new string[] { userToCreate.Email }, "Email Confirmation token", callback);
+
+            var message = _emailMessageProvider.GenerateEmailMessage(emailMessageConfig);
+
             await _emailSender.SendEmailAsync(message);
 
             return Ok();
@@ -93,11 +108,16 @@ namespace FestivalApp.API.Controllers
         public async Task<IActionResult> Login(UserForLoginDto userForLoginDto)
         {
             var user = await _userManager.FindByNameAsync(userForLoginDto.Username);
+
             if (user == null)
+            {
                 return Unauthorized("Invalid authorization!");
+            }
 
             if (!await _userManager.IsEmailConfirmedAsync(user))
+            {
                 return Unauthorized("Email is not confirmed!");
+            }
 
             var result = await _signInManager.CheckPasswordSignInAsync(user, userForLoginDto.Password, false);
 
@@ -120,12 +140,16 @@ namespace FestivalApp.API.Controllers
             var user = await _userManager.FindByEmailAsync(email);
 
             if (user == null)
+            {
                 return BadRequest("Invalid Email Confirmation Request");
+            }
 
             var confirmResult = await _userManager.ConfirmEmailAsync(user, token);
 
             if (!confirmResult.Succeeded)
+            {
                 return BadRequest("Invalid Email Confirmation Request");
+            }
 
             return Ok();
         }
@@ -136,17 +160,21 @@ namespace FestivalApp.API.Controllers
             var user = await _userManager.FindByEmailAsync(forgotPasswordDto.Email);
 
             if (user == null)
-                return BadRequest("If this address is correct an email has been sent to it.");
+            {
+                return Ok("An email has been sent to this address.");
+            }
 
             var token = await _userManager.GeneratePasswordResetTokenAsync(user);
-            var param = new Dictionary<string, string>
+            var emailMessageConfig = new EmailMessageConfiguration
             {
-                {"token", token},
-                {"email", forgotPasswordDto.Email}
+                Token = token,
+                EmailParam = forgotPasswordDto.Email,
+                EmailTo = new List<string> { user.Email },
+                ClientURI = forgotPasswordDto.ClientURI,
+                Subject = ResetPasswordEmailSubject
             };
 
-            var callback = QueryHelpers.AddQueryString(forgotPasswordDto.ClientURI, param);
-            var message = new Message(new string[] { user.Email }, "Reset password token", callback);
+            var message = _emailMessageProvider.GenerateEmailMessage(emailMessageConfig);
 
             await _emailSender.SendEmailAsync(message);
 
@@ -157,18 +185,23 @@ namespace FestivalApp.API.Controllers
         public async Task<IActionResult> ResetPassword([FromBody] ResetPasswordDto resetPasswordDto)
         {
             if (!ModelState.IsValid)
+            {
                 return BadRequest();
+            }
 
             var user = await _userManager.FindByEmailAsync(resetPasswordDto.Email);
 
             if (user == null)
+            {
                 return BadRequest("Invalid Request");
+            }
 
             var resetPassResult = await _userManager.ResetPasswordAsync(user, resetPasswordDto.Token, resetPasswordDto.Password);
 
             if (!resetPassResult.Succeeded)
             {
                 var errors = resetPassResult.Errors.Select(e => e.Description);
+
                 return BadRequest(new { Errors = errors });
             }
 

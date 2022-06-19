@@ -43,7 +43,6 @@ namespace FestivalApp.Core.Helpers
                 }
                 catch
                 {
-                    //log an error message or throw an exception, or both.
                     throw new Exception("Error when sending email");
                 }
                 finally
