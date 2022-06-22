@@ -85,6 +85,7 @@ namespace FestivalApp.API.Extensions
 
             services.AddSingleton(emailConfig);
             services.AddScoped<IEmailSender, EmailSender>();
+            services.AddScoped<IEmailMessageProvider, EmailMessageProvider>();
 
             // AutoMapper configuration
             var mapperConfig = new MapperConfiguration(mc =>
