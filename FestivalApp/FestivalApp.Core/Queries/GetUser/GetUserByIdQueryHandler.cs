@@ -6,12 +6,12 @@ using MediatR;
 
 namespace FestivalApp.Core.Queries.GetUser
 {
-    public class GetUserQueryHandler : IRequestHandler<GetUserByIdQuery, UserModel>
+    public class GetUserByIdQueryHandler : IRequestHandler<GetUserByIdQuery, UserModel>
     {
         private readonly IFestivalRepository _festivalRepository;
         private readonly IMapper _mapper;
 
-        public GetUserQueryHandler(IFestivalRepository festivalRepository, IMapper mapper)
+        public GetUserByIdQueryHandler(IFestivalRepository festivalRepository, IMapper mapper)
         {
             _festivalRepository = festivalRepository;
             _mapper = mapper;
