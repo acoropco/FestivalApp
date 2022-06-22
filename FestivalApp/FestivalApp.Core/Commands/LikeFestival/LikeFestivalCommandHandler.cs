@@ -1,5 +1,5 @@
 ﻿using FestivalApp.Core.Exceptions;
-using FestivalApp.Core.Interfaces;
+using FestivalApp.Domain.Interfaces;
 using FestivalApp.Domain.Entities;
 using MediatR;
 

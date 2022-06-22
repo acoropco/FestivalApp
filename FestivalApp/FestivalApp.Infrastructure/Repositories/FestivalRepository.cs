@@ -1,4 +1,4 @@
-using FestivalApp.Core.Interfaces;
+using FestivalApp.Domain.Interfaces;
 using FestivalApp.Infrastructure.Data;
 using FestivalApp.Domain.Entities;
 using Microsoft.EntityFrameworkCore;

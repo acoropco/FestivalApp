@@ -1,6 +1,6 @@
 using FestivalApp.Domain.Entities;
 
-namespace FestivalApp.Core.Interfaces
+namespace FestivalApp.Domain.Interfaces
 {
     public interface IFestivalRepository
     {

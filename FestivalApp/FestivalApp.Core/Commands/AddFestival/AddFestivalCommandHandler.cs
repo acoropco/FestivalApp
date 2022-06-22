@@ -1,4 +1,4 @@
-﻿using FestivalApp.Core.Interfaces;
+﻿using FestivalApp.Domain.Interfaces;
 using MediatR;
 using AutoMapper;
 using FestivalApp.Domain.Entities;

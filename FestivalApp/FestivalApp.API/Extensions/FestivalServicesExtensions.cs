@@ -7,6 +7,7 @@ using FestivalApp.Core.Interfaces;
 using FestivalApp.Core.Models;
 using FestivalApp.Core.Providers;
 using FestivalApp.Domain.Entities;
+using FestivalApp.Domain.Interfaces;
 using FestivalApp.Infrastructure.Data;
 using FestivalApp.Infrastructure.Repositories;
 using MediatR;

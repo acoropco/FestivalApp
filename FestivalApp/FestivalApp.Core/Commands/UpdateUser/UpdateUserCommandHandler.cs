@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using FestivalApp.Core.Interfaces;
+using FestivalApp.Domain.Interfaces;
 using MediatR;
 
 namespace FestivalApp.Core.Commands.UpdateUser

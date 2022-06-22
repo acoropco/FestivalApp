@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using FestivalApp.Core.Exceptions;
-using FestivalApp.Core.Interfaces;
+using FestivalApp.Domain.Interfaces;
 using FestivalApp.Core.Models;
 using MediatR;
 
