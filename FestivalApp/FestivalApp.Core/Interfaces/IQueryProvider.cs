@@ -2,6 +2,7 @@
 using FestivalApp.Core.Queries.GetFestivals;
 using FestivalApp.Core.Queries.GetRental;
 using FestivalApp.Core.Queries.GetRentals;
+using FestivalApp.Core.Queries.GetUser;
 
 namespace FestivalApp.Core.Interfaces
 {
@@ -14,5 +15,7 @@ namespace FestivalApp.Core.Interfaces
         GetRentalsQuery GetRentalsQuery();
 
         GetRentalByIdQuery GetRentalByIdQuery(int id);
+
+        GetUserByIdQuery GetUserByIdQuery(int id);
     }
 }

@@ -23,7 +23,7 @@ namespace FestivalApp.API.ExceptionFilter
                 case NotFoundException _:
                     HandleException(context, StatusCodes.Status404NotFound);
                     break;
-                case ValidationException _:
+                case BadRequestException _:
                     HandleException(context, StatusCodes.Status400BadRequest);
                     break;
                 default:

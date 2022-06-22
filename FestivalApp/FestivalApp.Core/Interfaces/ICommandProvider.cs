@@ -1,6 +1,7 @@
 ﻿using FestivalApp.Core.Commands.AddFestival;
 using FestivalApp.Core.Commands.AddRental;
 using FestivalApp.Core.Commands.LikeFestival;
+using FestivalApp.Core.Commands.UpdateUser;
 using FestivalApp.Core.Models;
 
 namespace FestivalApp.Core.Interfaces
@@ -12,5 +13,7 @@ namespace FestivalApp.Core.Interfaces
         LikeFestivalCommand LikeFestivalCommand(int festivalId, int userId);
 
         AddRentalCommand AddRentalCommand(RentalModel rental);
+
+        UpdateUserCommand UpdateUserCommand(int id, UserUpdateModel userUpdateModel);
     }
 }

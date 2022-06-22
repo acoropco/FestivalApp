@@ -2,6 +2,7 @@
 using FestivalApp.Core.Queries.GetFestivals;
 using FestivalApp.Core.Queries.GetRental;
 using FestivalApp.Core.Queries.GetRentals;
+using FestivalApp.Core.Queries.GetUser;
 using IQueryProvider = FestivalApp.Core.Interfaces.IQueryProvider;
 
 namespace FestivalApp.Core.Providers
@@ -26,6 +27,11 @@ namespace FestivalApp.Core.Providers
         public GetRentalsQuery GetRentalsQuery()
         {
             return new GetRentalsQuery();
+        }
+
+        public GetUserByIdQuery GetUserByIdQuery(int id)
+        {
+            return new GetUserByIdQuery(id);
         }
     }
 }

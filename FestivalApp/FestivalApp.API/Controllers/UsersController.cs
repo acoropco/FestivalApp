@@ -1,7 +1,10 @@
 using AutoMapper;
 using FestivalApp.API.DTOs;
 using FestivalApp.Core.Interfaces;
+using FestivalApp.Core.Models;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using IQueryProvider = FestivalApp.Core.Interfaces.IQueryProvider;
 
 namespace FestivalApp.API.Controllers
 {
@@ -9,39 +12,39 @@ namespace FestivalApp.API.Controllers
     [Route("api/[controller]")]
     public class UsersController : ControllerBase
     {
-        private readonly IFestivalRepository _repo;
+        private readonly IMediator _mediator;
         private readonly IMapper _mapper;
-        public UsersController(IFestivalRepository repo, IMapper mapper)
+        private readonly IQueryProvider _queryProvider;
+        private readonly ICommandProvider _commandProvider;
+
+        public UsersController(IMediator mediator, IMapper mapper, IQueryProvider queryProvider, ICommandProvider commandProvider)
         {
+            _mediator = mediator;
             _mapper = mapper;
-            _repo = repo;
+            _queryProvider = queryProvider;
+            _commandProvider = commandProvider;
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetUser(int id)
+        public async Task<ActionResult<UserProfileDto>> GetUser(int id)
         {
-            var userFromRepo = await _repo.GetUser(id);
+            var query = _queryProvider.GetUserByIdQuery(id);
 
-            if (userFromRepo == null)
-                return BadRequest();
+            var result = await _mediator.Send(query);
 
-            var userForProfile = _mapper.Map<UserProfileDto>(userFromRepo);
-
-            return Ok(userForProfile);
+            return Ok(_mapper.Map<UserProfileDto>(result));
         }
 
-        [HttpPut("{id}")]
+        [HttpPatch("{id}")]
         public async Task<IActionResult> UpdateUser(int id, UserEditDto userEditDto)
         {
-            var userFromRepo = await _repo.GetUser(id);
+            var userUpdateModel = _mapper.Map<UserUpdateModel>(userEditDto);
 
-            _mapper.Map(userEditDto, userFromRepo);
+            var command = _commandProvider.UpdateUserCommand(id, userUpdateModel);
 
-            await _repo.SaveAll();
+            await _mediator.Send(command);
 
             return NoContent();
-
-            throw new Exception($"Updating user with id: {id} failed");
         }
     }
 }
