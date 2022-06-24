@@ -20,6 +20,7 @@ namespace FestivalApp.Core.Commands.AddRental
         public async Task<int> Handle(AddRentalCommand request, CancellationToken cancellationToken)
         {
             var rentalEntity = _mapper.Map<Rental>(request.Rental);
+            rentalEntity.UserId = request.UserId;
             rentalEntity.Created = DateTime.Now;
 
             _festivalRepository.Add(rentalEntity);

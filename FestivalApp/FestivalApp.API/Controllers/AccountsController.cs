@@ -5,16 +5,16 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace FestivalApp.API.Controllers
 {
-  [Route("api/[controller]")]
-  [ApiController]
-  [AllowAnonymous]
-  public class AccountsController : ControllerBase
-  {
-    private readonly UserManager<User> _userManager;
-
-    public AccountsController(UserManager<User> userManager)
+    [Route("api/[controller]")]
+    [ApiController]
+    [AllowAnonymous]
+    public class AccountsController : ControllerBase
     {
-      _userManager = userManager;
+        private readonly UserManager<User> _userManager;
+
+        public AccountsController(UserManager<User> userManager)
+        {
+            _userManager = userManager;
+        }
     }
-  }
 }
