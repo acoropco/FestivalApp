@@ -38,6 +38,7 @@ namespace FestivalApp.Infrastructure.Repositories
 
         public async Task<List<Festival>> GetFestivals()
         {
+            int id;
             return await _context.Festivals.OrderBy(f => f.StartDate).ToListAsync();
         }
 
@@ -53,7 +54,7 @@ namespace FestivalApp.Infrastructure.Repositories
 
         public async Task<List<int>> GetLikedFestivalsId(int userId)
         {
-            return await _context.UserFestivals.Where(uf => uf.UserId == userId).Select(f => f.FestivalId).ToListAsync();
+            return await _context.UserFestivals.Where(uf => uf.UserId == userId).Select(uf => uf.FestivalId).ToListAsync();
         }
 
         public async Task<Rental> GetRental(int id)

@@ -12,7 +12,7 @@ namespace FestivalApp.Core.Interfaces
 
         LikeFestivalCommand LikeFestivalCommand(int festivalId, int userId);
 
-        AddRentalCommand AddRentalCommand(RentalModel rental);
+        AddRentalCommand AddRentalCommand(int userId, RentalModel rental);
 
         UpdateUserCommand UpdateUserCommand(int id, UserUpdateModel userUpdateModel);
     }

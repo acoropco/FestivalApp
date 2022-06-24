@@ -12,7 +12,7 @@ namespace FestivalApp.Core.Models
 
         public DateTime EndDate { get; set; }
 
-        public string Location { get; set; }
+        public string Street { get; set; }
 
         public string City { get; set; }
 
@@ -21,7 +21,5 @@ namespace FestivalApp.Core.Models
         public bool IsLiked { get; set; }
 
         public List<RentalModel> Rentals { get; set; }
-
-        public List<UserFestivalModel> UserFestivals { get; set; }
     }
 }

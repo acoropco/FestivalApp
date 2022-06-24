@@ -1,4 +1,5 @@
 using AutoMapper;
+using FestivalApp.API.Attributes;
 using FestivalApp.API.DTOs;
 using FestivalApp.Core.Interfaces;
 using FestivalApp.Core.Models;
@@ -25,12 +26,13 @@ namespace FestivalApp.API.Controllers
             _commandProvider = commandProvider;
         }
 
-        [HttpPost]
-        public async Task<IActionResult> AddRental(RentalForCreationDto rentalForCreationDto)
+        [HttpPost("{userId}")]
+        [AuthorizeUser]
+        public async Task<IActionResult> AddRental(int userId, RentalForCreationDto rentalForCreationDto)
         {
             var rental = _mapper.Map<RentalModel>(rentalForCreationDto);
 
-            var command = _commandProvider.AddRentalCommand(rental);
+            var command = _commandProvider.AddRentalCommand(userId, rental);
 
             var result = await _mediator.Send(command);
 
@@ -38,7 +40,7 @@ namespace FestivalApp.API.Controllers
         }
 
         [HttpGet("getRental/{id}", Name = "GetRental")]
-        public async Task<IActionResult> GetRental(int id)
+        public async Task<ActionResult<RentalModel>> GetRental(int id)
         {
             var query = _queryProvider.GetRentalByIdQuery(id);
 
@@ -48,7 +50,7 @@ namespace FestivalApp.API.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetRentals()
+        public async Task<ActionResult<List<RentalModel>>> GetRentals()
         {
             var query = _queryProvider.GetRentalsQuery();
 

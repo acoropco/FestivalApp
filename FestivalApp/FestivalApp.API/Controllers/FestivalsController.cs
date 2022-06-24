@@ -7,12 +7,12 @@ using IQueryProvider = FestivalApp.Core.Interfaces.IQueryProvider;
 using FestivalApp.Core.Models;
 using FestivalApp.API.DTOs;
 using Microsoft.AspNetCore.Authorization;
+using FestivalApp.API.Attributes;
 
 namespace FestivalApp.API.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    [AllowAnonymous]
     public class FestivalsController : ControllerBase
     {
         private readonly IMapper _mapper;
@@ -29,27 +29,28 @@ namespace FestivalApp.API.Controllers
         }
 
         [HttpGet("{userId}")]
+        [AuthorizeUser]
         public async Task<ActionResult<List<FestivalModel>>> GetFestivals(int userId)
         {
             var query = _queryProvider.GetFestivalsQuery(userId);
 
             var result = await _mediator.Send(query);
 
-            return Ok(_mapper.Map<List<FestivalModel>, List<FestivalForListDto>>(result));
+            return Ok(_mapper.Map<List<FestivalModel>, List<FestivalDto>>(result));
         }
 
         [HttpGet("getFestival/{id}", Name = "GetFestival")]
-        public async Task<IActionResult> GetFestival(int id)
+        public async Task<ActionResult<FestivalDto>> GetFestival(int id)
         {
             var query = _queryProvider.GetFestivalByIdQuery(id);
 
             var result = await _mediator.Send(query);
 
-            return Ok(_mapper.Map<FestivalModel, FestivalForListDto>(result));
+            return Ok(_mapper.Map<FestivalDto>(result));
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddFestival(FestivalForCreationDto festivalForCreationDto)
+        public async Task<ActionResult<int>> AddFestival(FestivalForCreationDto festivalForCreationDto)
         {
             var festival = _mapper.Map<FestivalModel>(festivalForCreationDto);
 
@@ -61,6 +62,7 @@ namespace FestivalApp.API.Controllers
         }
 
         [HttpPost("{festivalId}/like/{userId}")]
+        [AuthorizeUser]
         public async Task<IActionResult> LikeFestival(int festivalId, int userId)
         {
             if (userId != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))

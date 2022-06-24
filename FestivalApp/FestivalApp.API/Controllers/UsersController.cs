@@ -1,9 +1,11 @@
 using AutoMapper;
+using FestivalApp.API.Attributes;
 using FestivalApp.API.DTOs;
 using FestivalApp.Core.Interfaces;
 using FestivalApp.Core.Models;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 using IQueryProvider = FestivalApp.Core.Interfaces.IQueryProvider;
 
 namespace FestivalApp.API.Controllers
@@ -35,12 +37,13 @@ namespace FestivalApp.API.Controllers
             return Ok(_mapper.Map<UserProfileDto>(result));
         }
 
-        [HttpPatch("{id}")]
-        public async Task<IActionResult> UpdateUser(int id, UserEditDto userEditDto)
+        [HttpPatch("{userId}")]
+        [AuthorizeUser]
+        public async Task<IActionResult> UpdateUser(int userId, UserEditDto userEditDto)
         {
             var userUpdateModel = _mapper.Map<UserUpdateModel>(userEditDto);
 
-            var command = _commandProvider.UpdateUserCommand(id, userUpdateModel);
+            var command = _commandProvider.UpdateUserCommand(userId, userUpdateModel);
 
             await _mediator.Send(command);
 

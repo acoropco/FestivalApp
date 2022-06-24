@@ -22,7 +22,7 @@ namespace FestivalApp.Core.Commands.LikeFestival
             // TODO handle exception better
             if (userEntity == null || festivalEntity == null)
             {
-                throw new NotFoundException();
+                throw new BadRequestException();
             }
 
             var likeEntity = await _festivalRepository.GetLike(request.UserId, request.FestivalId);

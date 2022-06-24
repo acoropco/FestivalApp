@@ -2,6 +2,7 @@
 using FestivalApp.Domain.Interfaces;
 using FestivalApp.Core.Models;
 using MediatR;
+using FestivalApp.Domain.Entities;
 
 namespace FestivalApp.Core.Commands.AddRental
 {
@@ -18,7 +19,7 @@ namespace FestivalApp.Core.Commands.AddRental
 
         public async Task<int> Handle(AddRentalCommand request, CancellationToken cancellationToken)
         {
-            var rentalEntity = _mapper.Map<RentalModel>(request.Rental);
+            var rentalEntity = _mapper.Map<Rental>(request.Rental);
             rentalEntity.Created = DateTime.Now;
 
             _festivalRepository.Add(rentalEntity);

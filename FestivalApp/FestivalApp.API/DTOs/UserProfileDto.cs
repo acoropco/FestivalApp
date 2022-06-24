@@ -12,6 +12,6 @@ namespace FestivalApp.API.DTOs
 
         public DateTime Created { get; set; }
 
-        public List<RentalForListDto> Rentals { get; set; }
+        public List<RentalDto> Rentals { get; set; }
     }
 }

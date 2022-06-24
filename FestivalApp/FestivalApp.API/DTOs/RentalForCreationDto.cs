@@ -22,9 +22,6 @@ namespace FestivalApp.API.DTOs
         public int Price { get; set; }
 
         [Required]
-        public int UserId { get; set; }
-
-        [Required]
         public int FestivalId { get; set; }
     }
 }

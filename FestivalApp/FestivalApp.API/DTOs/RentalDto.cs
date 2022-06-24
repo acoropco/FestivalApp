@@ -1,6 +1,6 @@
 namespace FestivalApp.API.DTOs
 {
-    public class RentalForListDto
+    public class RentalDto
     {
         public int Id { get; set; }
 

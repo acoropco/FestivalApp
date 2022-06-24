@@ -19,9 +19,9 @@ namespace FestivalApp.Core.Providers
             return new LikeFestivalCommand(festivalId, userId);
         }
 
-        public AddRentalCommand AddRentalCommand(RentalModel rental)
+        public AddRentalCommand AddRentalCommand(int userId, RentalModel rental)
         {
-            return new AddRentalCommand(rental);
+            return new AddRentalCommand(userId, rental);
         }
 
         public UpdateUserCommand UpdateUserCommand(int id, UserUpdateModel userUpdateModel)
