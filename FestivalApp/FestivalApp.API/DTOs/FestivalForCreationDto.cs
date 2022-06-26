@@ -16,6 +16,8 @@ namespace FestivalApp.API.DTOs
 
         public string City { get; set; }
 
+        public string County { get; set; }
+
         public string? TicketUrl { get; set; }
     }
 }

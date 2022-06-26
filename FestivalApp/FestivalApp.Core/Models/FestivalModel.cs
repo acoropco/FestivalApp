@@ -16,6 +16,8 @@ namespace FestivalApp.Core.Models
 
         public string City { get; set; }
 
+        public string County { get; set; }
+
         public string TicketUrl { get; set; }
 
         public bool IsLiked { get; set; }

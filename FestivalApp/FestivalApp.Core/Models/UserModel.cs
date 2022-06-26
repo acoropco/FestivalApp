@@ -17,7 +17,5 @@ namespace FestivalApp.Core.Models
         public DateTime Created { get; set; }
 
         public List<RentalModel> Rentals { get; set; }
-
-        public List<UserFestivalModel> UserFestivals { get; set; }
     }
 }
