@@ -1,12 +1,12 @@
 ﻿using AutoMapper;
 using FestivalApp.Domain.Interfaces;
 using FestivalApp.Core.Models;
-using MediatR;
 using FestivalApp.Domain.Entities;
+using FestivalApp.Core.Interfaces;
 
 namespace FestivalApp.Core.Commands.AddRental
 {
-    public class AddRentalCommandHandler : IRequestHandler<AddRentalCommand, int>
+    public class AddRentalCommandHandler : ICommandHandler<AddRentalCommand, int>
     {
         private readonly IFestivalRepository _festivalRepository;
         private readonly IMapper _mapper;

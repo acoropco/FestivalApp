@@ -2,11 +2,11 @@
 using FestivalApp.Domain.Interfaces;
 using FestivalApp.Core.Models;
 using FestivalApp.Domain.Entities;
-using MediatR;
+using FestivalApp.Core.Interfaces;
 
 namespace FestivalApp.Core.Queries.GetFestivals
 {
-    public class GetFestivalsQueryHandler : IRequestHandler<GetFestivalsQuery, List<FestivalModel>>
+    public class GetFestivalsQueryHandler : IQueryHandler<GetFestivalsQuery, List<FestivalModel>>
     {
         private readonly IFestivalRepository _festivalRepository;
         private readonly IMapper _mapper;

@@ -1,11 +1,11 @@
 ﻿using FestivalApp.Domain.Interfaces;
-using MediatR;
 using AutoMapper;
 using FestivalApp.Domain.Entities;
+using FestivalApp.Core.Interfaces;
 
 namespace FestivalApp.Core.Commands.AddFestival
 {
-    public class AddFestivalCommandHandler : IRequestHandler<AddFestivalCommand, int>
+    public class AddFestivalCommandHandler : ICommandHandler<AddFestivalCommand, int>
     {
         private readonly IFestivalRepository _festivalRepository;
         private readonly IMapper _mapper;

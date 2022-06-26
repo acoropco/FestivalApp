@@ -2,11 +2,11 @@
 using FestivalApp.Core.Exceptions;
 using FestivalApp.Domain.Interfaces;
 using FestivalApp.Core.Models;
-using MediatR;
+using FestivalApp.Core.Interfaces;
 
 namespace FestivalApp.Core.Queries.GetRental
 {
-    public class GetRentalByIdQueryHandler : IRequestHandler<GetRentalByIdQuery, RentalModel>
+    public class GetRentalByIdQueryHandler : IQueryHandler<GetRentalByIdQuery, RentalModel>
     {
         private readonly IFestivalRepository _festivalRepositorry;
         private readonly IMapper _mapper;

@@ -1,9 +1,9 @@
-﻿using FestivalApp.Core.Models;
-using MediatR;
+﻿using FestivalApp.Core.Interfaces;
+using FestivalApp.Core.Models;
 
 namespace FestivalApp.Core.Queries.GetRental
 {
-    public class GetRentalByIdQuery : IRequest<RentalModel>
+    public class GetRentalByIdQuery : IQuery<RentalModel>
     {
         public int Id { get; set; }
 

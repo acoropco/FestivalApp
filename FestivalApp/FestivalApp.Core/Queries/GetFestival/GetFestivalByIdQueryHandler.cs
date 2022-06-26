@@ -1,11 +1,11 @@
 ﻿using AutoMapper;
 using FestivalApp.Domain.Interfaces;
 using FestivalApp.Core.Models;
-using MediatR;
+using FestivalApp.Core.Interfaces;
 
 namespace FestivalApp.Core.Queries.GetFestival
 {
-    public class GetFestivalByIdQueryHandler : IRequestHandler<GetFestivalByIdQuery, FestivalModel>
+    public class GetFestivalByIdQueryHandler : IQueryHandler<GetFestivalByIdQuery, FestivalModel>
     {
         private readonly IFestivalRepository _festivalRepository;
         private readonly IMapper _mapper;

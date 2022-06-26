@@ -1,9 +1,9 @@
-﻿using FestivalApp.Core.Models;
-using MediatR;
+﻿using FestivalApp.Core.Interfaces;
+using FestivalApp.Core.Models;
 
 namespace FestivalApp.Core.Commands.AddRental
 {
-    public class AddRentalCommand : IRequest<int>
+    public class AddRentalCommand : ICommand<int>
     {
         public int UserId { get; set; }
 

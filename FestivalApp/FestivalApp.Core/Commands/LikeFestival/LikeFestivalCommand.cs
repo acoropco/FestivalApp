@@ -1,8 +1,9 @@
-﻿using MediatR;
+﻿using FestivalApp.Core.Interfaces;
+using MediatR;
 
 namespace FestivalApp.Core.Commands.LikeFestival
 {
-    public class LikeFestivalCommand : IRequest<Unit>
+    public class LikeFestivalCommand : ICommand<Unit>
     {
         public int FestivalId { get; set; }
 

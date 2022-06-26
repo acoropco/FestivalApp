@@ -1,9 +1,9 @@
-﻿using FestivalApp.Core.Models;
-using MediatR;
+﻿using FestivalApp.Core.Interfaces;
+using FestivalApp.Core.Models;
 
 namespace FestivalApp.Core.Queries.GetFestivals
 {
-    public class GetFestivalsQuery : IRequest<List<FestivalModel>>
+    public class GetFestivalsQuery : IQuery<List<FestivalModel>>
     {
         public int UserId { get; set; }
 

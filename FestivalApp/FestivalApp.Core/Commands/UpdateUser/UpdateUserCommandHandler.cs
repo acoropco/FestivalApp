@@ -1,10 +1,11 @@
 ﻿using AutoMapper;
+using FestivalApp.Core.Interfaces;
 using FestivalApp.Domain.Interfaces;
 using MediatR;
 
 namespace FestivalApp.Core.Commands.UpdateUser
 {
-    public class UpdateUserCommandHandler : IRequestHandler<UpdateUserCommand, Unit>
+    public class UpdateUserCommandHandler : ICommandHandler<UpdateUserCommand, Unit>
     {
         private readonly IFestivalRepository _festivalRepository;
         private readonly IMapper _mapper;

@@ -1,11 +1,11 @@
 ﻿using FestivalApp.Core.Exceptions;
-using Microsoft.AspNetCore.Mvc;
+using FluentValidation;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.AspNetCore.WebUtilities;
 using System.Net.Mime;
 using System.Text.Json;
 
-namespace FestivalApp.API.ExceptionFilter
+namespace FestivalApp.API.Filters
 {
     public class GlobalExceptionFilter : IExceptionFilter
     {
@@ -20,37 +20,53 @@ namespace FestivalApp.API.ExceptionFilter
         {
             switch ( context.Exception )
             {
-                case NotFoundException _:
-                    HandleException(context, StatusCodes.Status404NotFound);
-                    break;
                 case BadRequestException _:
                     HandleException(context, StatusCodes.Status400BadRequest);
                     break;
+                case NotFoundException _:
+                    HandleException(context, StatusCodes.Status404NotFound);
+                    break;
+                case ValidationException _:
+                    HandleException(context, StatusCodes.Status422UnprocessableEntity);
+                    break;
                 default:
-                    _logger.LogError(context.Exception, $"Unhandled error occured: {context.Exception.Message}; Stack Trace: {context.Exception.StackTrace}");
+                    HandleException(context, StatusCodes.Status500InternalServerError);
                     break;
             }
         }
 
-        private void HandleException(ExceptionContext context, int statusCode)
+        private async void HandleException(ExceptionContext context, int statusCode)
         {
             var reasonPhrase = ReasonPhrases.GetReasonPhrase(statusCode);
             var exception = context.Exception;
 
-            var errorMessage = JsonSerializer.Serialize(new ProblemDetails
+            var errorMessage = new
             {
-                Status = statusCode,
-                Title = reasonPhrase,
-                Detail = exception?.Message
-            });
+                status = statusCode,
+                title = reasonPhrase,
+                detail = exception?.Message,
+                errors = GetErrors(exception)
+            };
 
             context.HttpContext.Response.StatusCode = statusCode;
             context.HttpContext.Response.ContentType = MediaTypeNames.Application.Json;
-            context.HttpContext.Response.WriteAsync(errorMessage);
+            await context.HttpContext.Response.WriteAsync(JsonSerializer.Serialize(errorMessage));
 
             _logger.LogError(exception, $"{reasonPhrase}: {exception?.Message}; Stack Trace: {exception?.StackTrace}");
 
             context.ExceptionHandled = true;
+        }
+
+        private static IEnumerable<string> GetErrors(Exception exception)
+        {
+            IEnumerable<string> errors = null;
+
+            if (exception is ValidationException validationException)
+            {
+                errors = validationException.Errors.Select(e => e.ErrorMessage);
+            }
+
+            return errors;
         }
     }
 }

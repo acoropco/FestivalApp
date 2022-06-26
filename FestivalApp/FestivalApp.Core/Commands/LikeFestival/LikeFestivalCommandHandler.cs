@@ -1,11 +1,12 @@
 ﻿using FestivalApp.Core.Exceptions;
 using FestivalApp.Domain.Interfaces;
 using FestivalApp.Domain.Entities;
+using FestivalApp.Core.Interfaces;
 using MediatR;
 
 namespace FestivalApp.Core.Commands.LikeFestival
 {
-    public class LikeFestivalCommandHandler : IRequestHandler<LikeFestivalCommand, Unit>
+    public class LikeFestivalCommandHandler : ICommandHandler<LikeFestivalCommand, Unit>
     {
         private readonly IFestivalRepository _festivalRepository;
 

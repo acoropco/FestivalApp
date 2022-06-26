@@ -1,9 +1,10 @@
-﻿using FestivalApp.Core.Models;
+﻿using FestivalApp.Core.Interfaces;
+using FestivalApp.Core.Models;
 using MediatR;
 
 namespace FestivalApp.Core.Commands.UpdateUser
 {
-    public class UpdateUserCommand : IRequest<Unit>
+    public class UpdateUserCommand : ICommand<Unit>
     {
         public int Id { get; set; }
 

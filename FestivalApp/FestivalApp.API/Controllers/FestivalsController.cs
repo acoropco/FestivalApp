@@ -50,7 +50,10 @@ namespace FestivalApp.API.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<int>> AddFestival(FestivalForCreationDto festivalForCreationDto)
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status422UnprocessableEntity)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<ActionResult<int>> AddFestival([FromBody]FestivalForCreationDto festivalForCreationDto)
         {
             var festival = _mapper.Map<FestivalModel>(festivalForCreationDto);
 
@@ -65,11 +68,6 @@ namespace FestivalApp.API.Controllers
         [AuthorizeUser]
         public async Task<IActionResult> LikeFestival(int festivalId, int userId)
         {
-            if (userId != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value))
-            {
-                return Unauthorized();
-            }
-
             var command = _commandProvider.LikeFestivalCommand(festivalId, userId);
 
             await _mediator.Send(command);

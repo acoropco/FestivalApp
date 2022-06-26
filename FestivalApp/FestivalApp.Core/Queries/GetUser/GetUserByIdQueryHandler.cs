@@ -2,11 +2,11 @@
 using FestivalApp.Core.Exceptions;
 using FestivalApp.Domain.Interfaces;
 using FestivalApp.Core.Models;
-using MediatR;
+using FestivalApp.Core.Interfaces;
 
 namespace FestivalApp.Core.Queries.GetUser
 {
-    public class GetUserByIdQueryHandler : IRequestHandler<GetUserByIdQuery, UserModel>
+    public class GetUserByIdQueryHandler : IQueryHandler<GetUserByIdQuery, UserModel>
     {
         private readonly IFestivalRepository _festivalRepository;
         private readonly IMapper _mapper;

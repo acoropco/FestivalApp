@@ -33,7 +33,7 @@ namespace FestivalApp.API.MappingProfiles
             CreateMap<RentalModel, RentalDto>();
             CreateMap<RentalModel, Rental>();
             CreateMap<Rental, RentalModel>();
-            
+            CreateMap<Rental, RentalDto>();
         }
     }
 }

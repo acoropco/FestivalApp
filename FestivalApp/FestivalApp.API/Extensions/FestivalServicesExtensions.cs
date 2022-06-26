@@ -1,15 +1,17 @@
 ﻿using AutoMapper;
-using FestivalApp.API.ExceptionFilter;
+using FestivalApp.API.Filters;
 using FestivalApp.API.MappingProfiles;
 using FestivalApp.Core.Commands.AddFestival;
 using FestivalApp.Core.Helpers;
 using FestivalApp.Core.Interfaces;
 using FestivalApp.Core.Models;
 using FestivalApp.Core.Providers;
+using FestivalApp.Core.Validators;
 using FestivalApp.Domain.Entities;
 using FestivalApp.Domain.Interfaces;
 using FestivalApp.Infrastructure.Data;
 using FestivalApp.Infrastructure.Repositories;
+using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -105,8 +107,11 @@ namespace FestivalApp.API.Extensions
 
             // Register MediatR and its providers
             services.AddMediatR(typeof(AddFestivalCommand).Assembly);
+            services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
             services.AddTransient<ICommandProvider, CommandProvider>();
             services.AddTransient<IQueryProvider, QueryProvider>();
+            services.AddValidatorsFromAssemblyContaining<AddFestivalCommandValidator>();
+
 
             services.AddScoped<IFestivalRepository, FestivalRepository>();
         }
