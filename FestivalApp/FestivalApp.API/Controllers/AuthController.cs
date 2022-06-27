@@ -78,6 +78,7 @@ namespace FestivalApp.API.Controllers
         public async Task<IActionResult> Register(UserForRegisterDto userForRegisterDto)
         {
             var userEntity = _mapper.Map<User>(userForRegisterDto);
+            userEntity.Created = DateTime.Now;
             userEntity.Email = userEntity.UserName;
 
             var result = await _userManager.CreateAsync(userEntity, userForRegisterDto.Password);

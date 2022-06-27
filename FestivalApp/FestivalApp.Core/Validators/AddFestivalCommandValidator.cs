@@ -30,6 +30,10 @@ namespace FestivalApp.Core.Validators
             RuleFor(f => f.Festival.City)
                 .NotEmpty()
                 .MaximumLength(100);
+
+            RuleFor(f => f.Festival.County)
+                .NotEmpty()
+                .MaximumLength(100);
         }
     }
 }

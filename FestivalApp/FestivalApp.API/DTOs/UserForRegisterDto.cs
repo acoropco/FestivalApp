@@ -20,13 +20,6 @@ namespace FestivalApp.API.DTOs
         [Required]
         public DateTime DateOfBirth { get; set; }
 
-        public DateTime Created { get; set; }
-
         public string ClientURI { get; set; }
-
-        public UserForRegisterDto()
-        {
-            Created = DateTime.Now;
-        }
     }
 }
