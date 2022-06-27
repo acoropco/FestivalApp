@@ -27,13 +27,13 @@ namespace FestivalApp.API.Controllers
             _commandProvider = commandProvider;
         }
 
-        [HttpPost("{userId}")]
-        [AuthorizeUser]
+        [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> AddRental(int userId, RentalRequestDto rentalForCreationDto)
+        public async Task<IActionResult> AddRental(RentalRequestDto rentalForCreationDto)
         {
+            var userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
             var rental = _mapper.Map<RentalModel>(rentalForCreationDto);
 
             var command = _commandProvider.AddRentalCommand(userId, rental);

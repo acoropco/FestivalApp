@@ -6,7 +6,6 @@ using System.Security.Claims;
 using IQueryProvider = FestivalApp.Core.Interfaces.IQueryProvider;
 using FestivalApp.Core.Models;
 using FestivalApp.API.DTOs;
-using Microsoft.AspNetCore.Authorization;
 using FestivalApp.API.Attributes;
 
 namespace FestivalApp.API.Controllers
@@ -28,13 +27,13 @@ namespace FestivalApp.API.Controllers
             _commandProvider = commandProvider;
         }
 
-        [HttpGet("{userId}")]
-        [AuthorizeUser]
+        [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<ActionResult<List<FestivalModel>>> GetFestivals(int userId)
+        public async Task<ActionResult<List<FestivalModel>>> GetFestivals()
         {
+            var userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
             var query = _queryProvider.GetFestivalsQuery(userId);
 
             var result = await _mediator.Send(query);
@@ -83,13 +82,13 @@ namespace FestivalApp.API.Controllers
             return Ok(_mapper.Map<FestivalDetailsDto>(result));
         }
 
-        [HttpPost("{festivalId}/like/{userId}")]
-        [AuthorizeUser]
+        [HttpPost("{festivalId}/like")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> LikeFestival(int festivalId, int userId)
         {
+            var userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
             var command = _commandProvider.LikeFestivalCommand(festivalId, userId);
 
             await _mediator.Send(command);
