@@ -28,6 +28,9 @@ namespace FestivalApp.API.Controllers
         }
 
         [HttpGet("{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<ActionResult<UserProfileDto>> GetUser(int id)
         {
             var query = _queryProvider.GetUserByIdQuery(id);
@@ -39,6 +42,9 @@ namespace FestivalApp.API.Controllers
 
         [HttpPatch("{userId}")]
         [AuthorizeUser]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> UpdateUser(int userId, UserEditDto userEditDto)
         {
             var userUpdateModel = _mapper.Map<UserUpdateModel>(userEditDto);

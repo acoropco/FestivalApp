@@ -30,6 +30,9 @@ namespace FestivalApp.API.Controllers
 
         [HttpGet("{userId}")]
         [AuthorizeUser]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<ActionResult<List<FestivalModel>>> GetFestivals(int userId)
         {
             var query = _queryProvider.GetFestivalsQuery(userId);
@@ -39,6 +42,7 @@ namespace FestivalApp.API.Controllers
             return Ok(_mapper.Map<List<FestivalModel>, List<FestivalDto>>(result));
         }
 
+        // TODO update endpoint based on further development
         [HttpGet("getFestival/{id}", Name = "GetFestival")]
         public async Task<ActionResult<FestivalDto>> GetFestival(int id)
         {
@@ -66,6 +70,9 @@ namespace FestivalApp.API.Controllers
 
         [HttpPost("{festivalId}/like/{userId}")]
         [AuthorizeUser]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> LikeFestival(int festivalId, int userId)
         {
             var command = _commandProvider.LikeFestivalCommand(festivalId, userId);

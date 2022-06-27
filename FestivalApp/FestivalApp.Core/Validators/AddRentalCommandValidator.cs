@@ -8,20 +8,20 @@ namespace FestivalApp.Core.Validators
         public AddRentalCommandValidator()
         {
             RuleFor(r => r.Rental.Name)
-                .NotEmpty()
-                .MaximumLength(100);
+                .NotEmpty().WithMessage("Rental name cannot be empty.")
+                .MaximumLength(100).WithMessage("Rental name cannot exceed 100 characters.");
 
             RuleFor(r => r.Rental.County)
-                .NotEmpty()
-                .MaximumLength(100);
+                .NotEmpty().WithMessage("County name cannot be empty.")
+                .MaximumLength(100).WithMessage("County name cannot exceed 100 characters.");
 
             RuleFor(r => r.Rental.City)
-                .NotEmpty()
-                .MaximumLength(100);
+                .NotEmpty().WithMessage("City name cannot be empty.")
+                .MaximumLength(100).WithMessage("City name cannot exceed 100 characters.");
 
             RuleFor(r => r.Rental.Street)
-                .NotEmpty()
-                .MaximumLength(100);
+                .NotEmpty().WithMessage("Street name cannot be empty.")
+                .MaximumLength(100).WithMessage("Street name cannot exceed 100 characters.");
         }
     }
 }

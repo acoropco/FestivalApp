@@ -28,6 +28,9 @@ namespace FestivalApp.API.Controllers
 
         [HttpPost("{userId}")]
         [AuthorizeUser]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> AddRental(int userId, RentalForCreationDto rentalForCreationDto)
         {
             var rental = _mapper.Map<RentalModel>(rentalForCreationDto);
@@ -40,6 +43,9 @@ namespace FestivalApp.API.Controllers
         }
 
         [HttpGet("getRental/{id}", Name = "GetRental")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<ActionResult<RentalModel>> GetRental(int id)
         {
             var query = _queryProvider.GetRentalByIdQuery(id);
@@ -50,6 +56,8 @@ namespace FestivalApp.API.Controllers
         }
 
         [HttpGet]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<ActionResult<List<RentalModel>>> GetRentals()
         {
             var query = _queryProvider.GetRentalsQuery();

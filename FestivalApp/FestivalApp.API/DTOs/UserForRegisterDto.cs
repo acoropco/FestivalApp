@@ -1,3 +1,4 @@
+using FestivalApp.API.Attributes;
 using System.ComponentModel.DataAnnotations;
 
 namespace FestivalApp.API.DTOs
@@ -6,7 +7,7 @@ namespace FestivalApp.API.DTOs
     {
         [Required]
         [EmailAddress]
-        public string Username { get; set; }
+        public string Email { get; set; }
 
         [Required]
         public string Password { get; set; }
@@ -22,6 +23,7 @@ namespace FestivalApp.API.DTOs
         public string PhoneNumber { get; set; }
 
         [Required]
+        [MinimumDateOfBirth(16)]
         public DateTime DateOfBirth { get; set; }
 
         [Required]

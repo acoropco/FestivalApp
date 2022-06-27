@@ -8,32 +8,32 @@ namespace FestivalApp.Core.Validators
         public AddFestivalCommandValidator()
         {
             RuleFor(f => f.Festival.Name)
-                .NotEmpty()
-                .MaximumLength(50);
+                .NotEmpty().WithMessage("Festival name cannot be empty.")
+                .MaximumLength(50).WithMessage("Festival name cannot exceed 50 characters.");
 
-            RuleFor(f => f.Festival.StartDate)
-                .NotEmpty()
-                .GreaterThanOrEqualTo(DateTime.Now.Date);
+            RuleFor(f => f.Festival.StartDate.Date)
+                .NotNull().WithMessage("Start date is invalid.")
+                .GreaterThanOrEqualTo(DateTime.Now.Date).WithMessage($"Start date cannot be lesser than {DateTime.Now.ToString("dd-MMM-yyyy")}.");
 
-            RuleFor(f => f.Festival.EndDate)
-                .NotEmpty()
-                .GreaterThanOrEqualTo(f => f.Festival.StartDate)
-                .LessThan(f => f.Festival.StartDate.AddYears(1));
+            RuleFor(f => f.Festival.EndDate.Date)
+                .NotNull().WithMessage("End date is invalid.")
+                .GreaterThanOrEqualTo(f => f.Festival.StartDate.Date).WithMessage($"End date must be greater than the start date.")
+                .LessThan(f => f.Festival.StartDate.Date.AddYears(1)).WithMessage("End date cannot surpass one year since it started.");
 
             RuleFor(f => f.Festival.ImageUrl)
-                .NotEmpty();
+                .NotEmpty().WithMessage("Image Url cannot be empty.");
 
             RuleFor(f => f.Festival.Street)
-                .NotEmpty()
-                .MaximumLength(100);
+                .NotEmpty().WithMessage("Street name cannot be empty.")
+                .MaximumLength(100).WithMessage("Street name cannot exceed 100 characters.");
 
             RuleFor(f => f.Festival.City)
-                .NotEmpty()
-                .MaximumLength(100);
+                .NotEmpty().WithMessage("City name cannot be empty.")
+                .MaximumLength(100).WithMessage("City name cannot exceed 100 characters.");
 
             RuleFor(f => f.Festival.County)
-                .NotEmpty()
-                .MaximumLength(100);
+                .NotEmpty().WithMessage("County name cannot be empty.")
+                .MaximumLength(100).WithMessage("County name cannot exceed 100 characters.");
         }
     }
 }

@@ -14,7 +14,7 @@ namespace FestivalApp.API.Attributes
             
             if (int.Parse(routeData.Values[UserId].ToString()) != int.Parse(context.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value))
             {
-                context.Result = new UnauthorizedResult();
+                context.Result = new ForbidResult();
             }
         }
     }

@@ -46,11 +46,14 @@ namespace FestivalApp.API.Controllers
         }
 
         [HttpPost("register")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> Register(UserForRegisterDto userForRegisterDto)
         {
             var userEntity = _mapper.Map<User>(userForRegisterDto);
             userEntity.Created = DateTime.Now;
-            userEntity.Email = userEntity.UserName;
+            userEntity.UserName = userEntity.Email;
 
             var result = await _userManager.CreateAsync(userEntity, userForRegisterDto.Password);
 
@@ -77,6 +80,9 @@ namespace FestivalApp.API.Controllers
         }
 
         [HttpPost("login")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> Login(UserForLoginDto userForLoginDto)
         {
             var user = await _userManager.FindByNameAsync(userForLoginDto.Username);
@@ -107,6 +113,9 @@ namespace FestivalApp.API.Controllers
         }
 
         [HttpGet("emailConfirmation")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> EmailConfirmation([FromQuery] string email, [FromQuery] string token)
         {
             var user = await _userManager.FindByEmailAsync(email);
@@ -127,6 +136,8 @@ namespace FestivalApp.API.Controllers
         }
 
         [HttpPost("forgotPassword")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> ForgotPassword([FromBody] ForgotPasswordDto forgotPasswordDto)
         {
             var user = await _userManager.FindByEmailAsync(forgotPasswordDto.Email);
@@ -150,10 +161,13 @@ namespace FestivalApp.API.Controllers
 
             await _emailSender.SendEmailAsync(message);
 
-            return Ok();
+            return Ok("An email has been sent to this address.");
         }
 
         [HttpPost("resetPassword")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> ResetPassword([FromBody] ResetPasswordDto resetPasswordDto)
         {
             if (!ModelState.IsValid)
