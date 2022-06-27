@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using FestivalApp.API.Filters;
+using FestivalApp.API.Helpers;
 using FestivalApp.API.MappingProfiles;
 using FestivalApp.Core.Commands.AddFestival;
 using FestivalApp.Core.Helpers;
@@ -87,6 +88,7 @@ namespace FestivalApp.API.Extensions
             var emailConfig = configuration.GetSection("EmailConfiguration").Get<EmailConfiguration>();
 
             services.AddSingleton(emailConfig);
+            services.AddScoped<ITokenGenerator, TokenGenerator>();
             services.AddScoped<IEmailSender, EmailSender>();
             services.AddScoped<IEmailMessageProvider, EmailMessageProvider>();
 

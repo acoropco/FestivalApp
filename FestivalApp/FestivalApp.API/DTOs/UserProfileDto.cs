@@ -8,6 +8,8 @@ namespace FestivalApp.API.DTOs
 
         public string LastName { get; set; }
 
+        public string PhoneNumber { get; set; }
+
         public DateTime DateOfBirth { get; set; }
 
         public DateTime Created { get; set; }
