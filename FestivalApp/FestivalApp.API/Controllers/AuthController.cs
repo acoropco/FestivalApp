@@ -1,5 +1,7 @@
 using AutoMapper;
 using FestivalApp.API.DTOs;
+using FestivalApp.API.Helpers;
+using FestivalApp.Core.Constants;
 using FestivalApp.Core.Interfaces;
 using FestivalApp.Core.Models;
 using FestivalApp.Domain.Entities;
@@ -24,16 +26,15 @@ namespace FestivalApp.API.Controllers
         private readonly IMapper _mapper;
         private readonly IConfiguration _config;
         private readonly IEmailSender _emailSender;
-
-        private const string RegisterEmailSubject = "Email Confirmation Token";
-        private const string ResetPasswordEmailSubject = "Reset password Token";
+        private readonly ITokenGenerator _tokenGenerator;
 
         public AuthController(UserManager<User> userManager,
             SignInManager<User> signInManager,
             IMapper mapper,
             IConfiguration config,
             IEmailMessageProvider emailMessageProvider,
-            IEmailSender emailSender)
+            IEmailSender emailSender,
+            ITokenGenerator tokenGenerator)
         {
             _userManager = userManager;
             _signInManager = signInManager;
@@ -41,37 +42,7 @@ namespace FestivalApp.API.Controllers
             _config = config;
             _emailMessageProvider = emailMessageProvider;
             _emailSender = emailSender;
-        }
-
-        private async Task<string> GenerateToken(User user)
-        {
-            var claims = new List<Claim> {
-                new Claim (ClaimTypes.NameIdentifier, user.Id.ToString()),
-                new Claim (ClaimTypes.Name, user.UserName)
-            };
-
-            var roles = await _userManager.GetRolesAsync(user);
-
-            foreach (var role in roles)
-            {
-                claims.Add(new Claim(ClaimTypes.Role, role));
-            }
-
-            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config.GetSection("AppSettings:Token").Value));
-
-            var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha512Signature);
-
-            var tokenDescriptor = new SecurityTokenDescriptor
-            {
-                Subject = new ClaimsIdentity(claims),
-                Expires = DateTime.Now.AddDays(1),
-                SigningCredentials = creds
-            };
-
-            var tokenHandler = new JwtSecurityTokenHandler();
-            var token = tokenHandler.CreateToken(tokenDescriptor);
-
-            return tokenHandler.WriteToken(token);
+            _tokenGenerator = tokenGenerator;
         }
 
         [HttpPost("register")]
@@ -95,7 +66,7 @@ namespace FestivalApp.API.Controllers
                 EmailParam = userEntity.Email,
                 EmailTo = new List<string> { userEntity.Email },
                 ClientURI = userForRegisterDto.ClientURI,
-                Subject = RegisterEmailSubject
+                Subject = EmailSubject.RegisterEmailSubject
             };
 
             var message = _emailMessageProvider.GenerateEmailMessage(emailMessageConfig);
@@ -127,7 +98,7 @@ namespace FestivalApp.API.Controllers
                 var appUser = _mapper.Map<UserProfileDto>(user);
                 return Ok(new
                 {
-                    token = GenerateToken(user).Result,
+                    token = _tokenGenerator.GenerateToken(user).Result,
                     user = appUser
                 });
             }
@@ -172,7 +143,7 @@ namespace FestivalApp.API.Controllers
                 EmailParam = forgotPasswordDto.Email,
                 EmailTo = new List<string> { user.Email },
                 ClientURI = forgotPasswordDto.ClientURI,
-                Subject = ResetPasswordEmailSubject
+                Subject = EmailSubject.ResetPasswordEmailSubject
             };
 
             var message = _emailMessageProvider.GenerateEmailMessage(emailMessageConfig);

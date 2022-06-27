@@ -18,6 +18,9 @@ namespace FestivalApp.API.DTOs
         public string LastName { get; set; }
 
         [Required]
+        public string PhoneNumber { get; set; }
+
+        [Required]
         public DateTime DateOfBirth { get; set; }
 
         public string ClientURI { get; set; }
