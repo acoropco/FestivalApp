@@ -1,12 +1,12 @@
 namespace FestivalApp.API.DTOs
 {
-    public class FestivalDto
+    public class FestivalRequestDto
     {
-        public int Id { get; set; }
-
         public string Name { get; set; }
 
         public string ImageUrl { get; set; }
+
+        public string? Description { get; set; }
 
         public DateTime StartDate { get; set; }
 
@@ -18,8 +18,6 @@ namespace FestivalApp.API.DTOs
 
         public string County { get; set; }
 
-        public string TicketUrl { get; set; }
-
-        public bool IsLiked { get; set; }
+        public string? TicketUrl { get; set; }
     }
 }

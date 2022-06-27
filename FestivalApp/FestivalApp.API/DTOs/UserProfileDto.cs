@@ -11,9 +11,9 @@ namespace FestivalApp.API.DTOs
         public string PhoneNumber { get; set; }
 
         public DateTime DateOfBirth { get; set; }
-
+        
         public DateTime Created { get; set; }
 
-        public List<RentalDto> Rentals { get; set; }
+        public List<RentalDetailsDto> Rentals { get; set; }
     }
 }

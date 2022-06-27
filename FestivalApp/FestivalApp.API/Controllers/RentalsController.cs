@@ -5,6 +5,7 @@ using FestivalApp.Core.Interfaces;
 using FestivalApp.Core.Models;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 using IQueryProvider = FestivalApp.Core.Interfaces.IQueryProvider;
 
 namespace FestivalApp.API.Controllers
@@ -31,7 +32,7 @@ namespace FestivalApp.API.Controllers
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> AddRental(int userId, RentalForCreationDto rentalForCreationDto)
+        public async Task<IActionResult> AddRental(int userId, RentalRequestDto rentalForCreationDto)
         {
             var rental = _mapper.Map<RentalModel>(rentalForCreationDto);
 
@@ -40,6 +41,23 @@ namespace FestivalApp.API.Controllers
             var result = await _mediator.Send(command);
 
             return CreatedAtRoute("GetRental", new { id = result }, result);
+        }
+
+        [HttpPatch("{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
+        [ProducesResponseType(StatusCodes.Status422UnprocessableEntity)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<ActionResult<RentalDetailsDto>> UpdateRental(int id, [FromBody]RentalRequestDto rentalForCreationDto)
+        {
+            var userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
+            var rental = _mapper.Map<RentalUpdateModel>(rentalForCreationDto);
+
+            var command = _commandProvider.UpdateRentalCommand(id, userId, rental);
+
+            var result = await _mediator.Send(command);
+
+            return Ok(_mapper.Map<RentalDetailsDto>(result));
         }
 
         [HttpGet("getRental/{id}", Name = "GetRental")]

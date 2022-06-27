@@ -23,6 +23,9 @@ namespace FestivalApp.API.Filters
                 case BadRequestException _:
                     HandleException(context, StatusCodes.Status400BadRequest);
                     break;
+                case ForbiddenException _:
+                    HandleException(context, StatusCodes.Status403Forbidden);
+                    break;
                 case NotFoundException _:
                     HandleException(context, StatusCodes.Status404NotFound);
                     break;

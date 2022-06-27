@@ -1,9 +1,7 @@
-namespace FestivalApp.API.DTOs
+﻿namespace FestivalApp.Core.Models
 {
-    public class RentalDto
+    public class RentalUpdateModel
     {
-        public int Id { get; set; }
-
         public string Name { get; set; }
 
         public string County { get; set; }
@@ -16,12 +14,6 @@ namespace FestivalApp.API.DTOs
 
         public int Price { get; set; }
 
-        public DateTime Created { get; set; }
-
-        public int UserId { get; set; }
-
         public int FestivalId { get; set; }
-
-        public string ThumbnailUrl { get; set; }
     }
 }

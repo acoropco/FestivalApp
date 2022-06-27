@@ -1,12 +1,16 @@
-namespace FestivalApp.API.DTOs
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace FestivalApp.Core.Models
 {
-    public class FestivalForCreationDto
+    public class FestivalUpdateModel
     {
         public string Name { get; set; }
 
         public string ImageUrl { get; set; }
-
-        public string? Description { get; set; }
 
         public DateTime StartDate { get; set; }
 
@@ -18,6 +22,6 @@ namespace FestivalApp.API.DTOs
 
         public string County { get; set; }
 
-        public string? TicketUrl { get; set; }
+        public string TicketUrl { get; set; }
     }
 }

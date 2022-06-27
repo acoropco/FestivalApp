@@ -21,19 +21,23 @@ namespace FestivalApp.API.MappingProfiles
             CreateMap<User, UserModel>();
 
             // Festival model mappings
-            CreateMap<FestivalModel, FestivalDto>();
+            CreateMap<FestivalModel, FestivalDetailsDto>();
             CreateMap<FestivalModel, Festival>();
-            CreateMap<FestivalModel, FestivalDto>();
+            CreateMap<FestivalModel, FestivalDetailsDto>();
             CreateMap<Festival, FestivalModel>();
-            CreateMap<FestivalForCreationDto, FestivalModel>();
-            CreateMap<FestivalDto, FestivalModel>();
+            CreateMap<FestivalRequestDto, FestivalModel>();
+            CreateMap<FestivalDetailsDto, FestivalModel>();
+            CreateMap<FestivalRequestDto, FestivalUpdateModel>();
+            CreateMap<FestivalUpdateModel, Festival>();
             
             // Rentals models mappings
-            CreateMap<RentalForCreationDto, RentalModel>();
-            CreateMap<RentalModel, RentalDto>();
+            CreateMap<RentalRequestDto, RentalModel>();
+            CreateMap<RentalModel, RentalDetailsDto>();
             CreateMap<RentalModel, Rental>();
             CreateMap<Rental, RentalModel>();
-            CreateMap<Rental, RentalDto>();
+            CreateMap<Rental, RentalDetailsDto>();
+            CreateMap<RentalRequestDto, RentalUpdateModel>();
+            CreateMap<RentalUpdateModel, Rental>();
         }
     }
 }
