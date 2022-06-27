@@ -8,10 +8,6 @@ using FestivalApp.Domain.Entities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.IdentityModel.Tokens;
-using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
-using System.Text;
 
 namespace FestivalApp.API.Controllers
 {
@@ -24,14 +20,12 @@ namespace FestivalApp.API.Controllers
         private readonly SignInManager<User> _signInManager;
         private readonly IEmailMessageProvider _emailMessageProvider;
         private readonly IMapper _mapper;
-        private readonly IConfiguration _config;
         private readonly IEmailSender _emailSender;
         private readonly ITokenGenerator _tokenGenerator;
 
         public AuthController(UserManager<User> userManager,
             SignInManager<User> signInManager,
             IMapper mapper,
-            IConfiguration config,
             IEmailMessageProvider emailMessageProvider,
             IEmailSender emailSender,
             ITokenGenerator tokenGenerator)
@@ -39,7 +33,6 @@ namespace FestivalApp.API.Controllers
             _userManager = userManager;
             _signInManager = signInManager;
             _mapper = mapper;
-            _config = config;
             _emailMessageProvider = emailMessageProvider;
             _emailSender = emailSender;
             _tokenGenerator = tokenGenerator;
