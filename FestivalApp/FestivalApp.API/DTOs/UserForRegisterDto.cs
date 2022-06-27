@@ -23,7 +23,7 @@ namespace FestivalApp.API.DTOs
         public string PhoneNumber { get; set; }
 
         [Required]
-        [MinimumDateOfBirth(16)]
+        [MinimumAge(16)]
         public DateTime DateOfBirth { get; set; }
 
         [Required]

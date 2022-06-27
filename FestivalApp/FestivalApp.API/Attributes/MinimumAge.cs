@@ -2,11 +2,11 @@
 
 namespace FestivalApp.API.Attributes
 {
-    public class MinimumDateOfBirth : ValidationAttribute
+    public class MinimumAge : ValidationAttribute
     {
         private readonly int _minimumAge;
 
-        public MinimumDateOfBirth(int minimumAge)
+        public MinimumAge(int minimumAge)
         {
             _minimumAge = minimumAge;
         }
