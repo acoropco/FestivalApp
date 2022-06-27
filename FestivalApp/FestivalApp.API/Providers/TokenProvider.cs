@@ -7,12 +7,12 @@ using System.Text;
 
 namespace FestivalApp.API.Helpers
 {
-    public class TokenGenerator : ITokenGenerator
+    public class TokenProvider : ITokenProvider
     {
         private readonly UserManager<User> _userManager;
         private readonly IConfiguration _config;
 
-        public TokenGenerator(UserManager<User> userManager, IConfiguration config)
+        public TokenProvider(UserManager<User> userManager, IConfiguration config)
         {
             _userManager = userManager;
             _config = config;

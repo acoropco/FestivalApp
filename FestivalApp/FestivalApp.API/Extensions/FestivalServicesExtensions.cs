@@ -88,7 +88,7 @@ namespace FestivalApp.API.Extensions
             var emailConfig = configuration.GetSection("EmailConfiguration").Get<EmailConfiguration>();
 
             services.AddSingleton(emailConfig);
-            services.AddScoped<ITokenGenerator, TokenGenerator>();
+            services.AddScoped<ITokenProvider, TokenProvider>();
             services.AddScoped<IEmailSender, EmailSender>();
             services.AddScoped<IEmailMessageProvider, EmailMessageProvider>();
 

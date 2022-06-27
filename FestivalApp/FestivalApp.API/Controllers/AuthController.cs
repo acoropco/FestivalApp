@@ -21,21 +21,21 @@ namespace FestivalApp.API.Controllers
         private readonly IEmailMessageProvider _emailMessageProvider;
         private readonly IMapper _mapper;
         private readonly IEmailSender _emailSender;
-        private readonly ITokenGenerator _tokenGenerator;
+        private readonly ITokenProvider _tokenProvider;
 
         public AuthController(UserManager<User> userManager,
             SignInManager<User> signInManager,
             IMapper mapper,
             IEmailMessageProvider emailMessageProvider,
             IEmailSender emailSender,
-            ITokenGenerator tokenGenerator)
+            ITokenProvider tokenProvider)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _mapper = mapper;
             _emailMessageProvider = emailMessageProvider;
             _emailSender = emailSender;
-            _tokenGenerator = tokenGenerator;
+            _tokenProvider = tokenProvider;
         }
 
         [HttpPost("register")]
@@ -97,7 +97,7 @@ namespace FestivalApp.API.Controllers
                 var appUser = _mapper.Map<UserProfileDto>(user);
                 return Ok(new
                 {
-                    token = _tokenGenerator.GenerateToken(user).Result,
+                    token = _tokenProvider.GenerateToken(user).Result,
                     user = appUser
                 });
             }

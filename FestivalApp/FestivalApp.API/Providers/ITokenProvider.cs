@@ -2,7 +2,7 @@
 
 namespace FestivalApp.API.Helpers
 {
-    public interface ITokenGenerator
+    public interface ITokenProvider
     {
         public Task<string> GenerateToken(User user);
     }
